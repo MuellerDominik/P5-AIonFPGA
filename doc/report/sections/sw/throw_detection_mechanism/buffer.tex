@@ -1,0 +1,12 @@
+\subsubsection{Circular Buffer}
+\label{subsubsec:buffer}
+% \todo[inline]{Citations}
+
+% opencv matrix circular buffer (same size as Baumer buffer but shallow [shallow-copy])
+  % only pointer to the baumer pixel data
+  % copying would require a lot of space and time (which is not much to play with), thus main reason time
+% circular buffer graphic
+
+\begin{lstlisting}[style=C++]
+  cv_buffer[frame_id % buff_size] = cv::Mat(height, width, CV_8UC1, (void *) pBufferFilled->GetMemPtr());
+\end{lstlisting}

@@ -1,0 +1,37 @@
+\subsubsection{USB3 Vision Interface}
+\label{subsubsec:usb3_vision_interface}
+\todo[inline]{Citations, Colon after caption of tables?, Table H instead of h}
+
+The Baumer industrial camera VCXU-13C uses the USB3 Vision (U3V) interface with a maximum transfer rate of \SI{5}{Gbit/s} $\approx$ \SI{596}{MiB}.
+The max. frame rate is \SI{222}{fps} and the total pixel count is equal to
+\[
+\text{Pixel}_\text{tot} = \text{Pixel}_\text{width} \cdot \text{Pixel}_\text{height} = \SI{1280}{px} \cdot \SI{1024}{px} = \SI{1310720}{px}.
+\]
+
+To calculate the required data rate in bytes per second, equation \ref{eq:data_rate} can be used.
+
+\begin{equation}
+  \text{Req. data rate} = \text{Pixel}_\text{tot} \cdot \text{Byte per pixel} \cdot \text{Frame rate}
+  \label{eq:data_rate}
+\end{equation}
+
+For this application a fixed frame rate of \SI{200}{fps} is sufficient and facilitates the calculations.
+
+Table \ref{tab:data_rates} shows the required data rates for the Baumer pixel format \texttt{BayerRG8} and \texttt{BGR8}.
+It is evident that due to the maximum transfer rate of \SI{596}{MiB} of the U3V interface, only the Baumer \texttt{BayerRG8} pixel format is suitable.
+% https://www.baumer.com/ch/de/produktubersicht/industriekameras-bildverarbeitung/industriekameras/cx-serie/usb-3-0-schnittstelle/vcxu-13c/p/23792
+
+\begin{table}[h]
+  \caption{Required data rate for the two Baumer pixel formats \texttt{BayerRG8} and \texttt{BGR8}}
+  \label{tab:data_rates}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+     & \textbf{\texttt{BayerRG8}} & \textbf{\texttt{BGR8}} \\
+    \midrule
+    \textbf{Bytes per pixel} & \SI{1}{B} & \SI{3}{B} \\
+    \textbf{Frame rate} & \SI{200}{fps} & \SI{200}{fps} \\
+    \textbf{Req. data rate} & \SI{250}{MiB/s} & \SI{750}{MiB/s} \\
+    \bottomrule
+  \end{tabular}
+\end{table}

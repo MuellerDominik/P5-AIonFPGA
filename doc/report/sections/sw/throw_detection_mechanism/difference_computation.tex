@@ -1,0 +1,14 @@
+\subsubsection{Difference Computation}
+\label{subsubsec:difference_computation}
+% \todo[inline]{Citations}
+
+% computation of the difference how it is done with opencv
+
+% done for every frame except the first one (FID = 0)
+
+% after the threshold averaging (see chapter threshold) ?!
+
+\begin{lstlisting}[style=C++]
+  cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);
+  mean_diff = cv::sum(cv_abs)[0] / (width * height);
+\end{lstlisting}

@@ -1,3 +1,19 @@
 \section{Software}
 \label{sec:software}
-\todo{Dominik}
+
+Collecting a sufficiently large dataset of pictures is not trivial.
+% Why is it not trivial?
+When done manually, the camera has to be started and stopped for each throw.
+This likely creates many empty frames at the beginning and at the end of the capture.
+Those empty and therefore invalid frames must be removed to avoid errors during the training of the CNN later on.
+Furthermore, each valid frame must be labeled.
+This procedure is very error-prone if it is performed manually for each individual frame.
+% Solution
+To simplify this task, a camera throw detection mechanism is implemented and various Python scripts are used.
+
+This chapter desrcibes the camera interface, the implemented throw detection mechanism, the used database and the various Python scripts.
+
+\input{sections/sw/camera_interface}
+\input{sections/sw/throw_detection_mechanism}
+\input{sections/sw/database}
+\input{sections/sw/python_scripts}

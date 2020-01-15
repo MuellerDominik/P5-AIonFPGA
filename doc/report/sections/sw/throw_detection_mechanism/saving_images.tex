@@ -1,0 +1,12 @@
+\subsubsection{Saving Images}
+\label{subsubsec:saving_images}
+% \todo[inline]{Citations, Why PNG and not BMP or JPG?}
+
+Resulting in the file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the amount of valid frames).
+
+\begin{lstlisting}[style=C++]
+  for (int i = throw_bgn_idx; i < (throw_end_idx - 1); ++i) {
+    cv::cvtColor(cv_buffer[i % buff_size], cv_transformed, cv::COLOR_BayerBG2BGR);
+    cv::imwrite(output_path + std::to_string(i - throw_bgn_idx) + ".png", cv_transformed);
+  }
+\end{lstlisting}
