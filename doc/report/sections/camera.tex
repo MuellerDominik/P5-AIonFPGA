@@ -1,4 +1,35 @@
 \section{Camera}
 \label{sec:camera}
-\todo{Dominik / Nico}
-\todo[inline]{Beleuchtung ebenfalls hier, mit Intensität, nach aussen immer schwächer}
+\todo[inline]{Dominik / Nico}
+\subsection{Webcam}
+\label{subsec:webcam}
+A simple webcam is not enough to capture fast moving objects with sufficient quality. 
+There are several reasons for this.
+Firstly, certain parameters, such as the exposure time, cannot be adjusted by the user.
+This would be necessary to capture the contours of the object being thrown as detailed as possible.
+Secondly, conventional webcams work with a rolling shutter.
+Technically this means that fewer sensors are used. Therefore one sensor processes several pixels one after the other.
+
+This results in the rolling shutter effect when the image changes.
+On the one hand this effect is noticeable when the light flickers quickly.
+For example the upper part of an image can be brighter than the lower part.
+On the other hand there are problems with moving pictures.
+The lower part of the image was taken at a later time, so the object appears distorted \cite{GlobalRollingShutter}.
+
+To eliminate this problem, some cameras feature the global shutter. 
+This takes all pixels at the same time and stores them. 
+Thus no distortions in the image occur.
+
+This can be shown well with an example.
+In the figure subfig1 is a recording of a ball with rolling shutter. 
+Figure subfig2 shows the same object, taken with a global shutter camera.
+The distortion from the rolling shutter is clearly visible and distorts the effective object.
+
+\todo[inline]{Bild Rolling shutter vs global shutter einfügen}
+
+\subsection{Baumers industrial camera}
+\label{subsec:baumer_cam}
+
+\subsection{Lighting}
+\label{subsec:Lighting}
+\todo[inline]{mit Intensität, nach aussen immer schwächer}

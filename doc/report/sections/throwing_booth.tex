@@ -31,22 +31,33 @@ To ensure that the objects are thrown through the field of view and far away fro
 It is located on the right side of the back wall, which is further away from the camera.
 If the throwing objects are hit through the hole in the rear wall, they land in a net.
 
-The throwing booth is drawn in the CAD tool Inventor.
+The back wall is made of a 5 mm thick plate of ABS.
+This material is robust and withstands the impacts of the throwing objects.
+The side wall is made of foamed PVC.
+Due to the manufacturing process, the plate is less smooth, which results in less light reflections and therefore better pictures.
+
+The whole throwing booth is drawn in the CAD tool Inventor. It is designed with all its components using a 3D model.
 The camera is mounted on an Item profile with an aluminum mounting adapter which is shown in figure \ref{fig:mounting_adapter} and protected from damage with an aluminum sheet.
-The drawings of these parts can be found in the appendix \ref{app:drawings_mounting_adapter} and \ref{app:drawings_camera_protection}.
+Both components have slotted holes to allow fine adjustments to be made during assembly.
+The drawings of these parts can be found in the appendix \ref{app:drawings_camera_protection} and \ref{app:drawings_mounting_adapter}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.2]{graphics/mounting_adapter.png}
-	\caption{Mounting Adapter}
+	\includegraphics[width=0.4\textwidth]{graphics/mounting_adapter.png}
+	\caption{Camera mounting adapter}
 	\label{fig:mounting_adapter}
 \end{figure}
 
-In order to detect and correct errors in thinking, the booth with all its components was designed using a 3D model.
-This also includes a case in which the electronics can be stowed away.
-The case is a container from Fibox with a transparent lid.
-The construction drawings can be found in the appendix \ref{app:drawings_fibox_bottom}.
+The power supplies for all electronic components are placed in a box together with the Ultra96-V2.
+The box is a case from Fibox with a transparent lid to give visitors an impression of the way it works.
+It has a \SI{230}{VAC} power cable, a \SI{24}{VDC} output for lighting, a Mini DisplayPort cable for the monitor, and the USB cable for the camera.
+To ensure that the Ultra96-V2 board is cooled, there are also 3 fans on the walls.
+The box also contains terminal blocks and cable trunking to store cables that are too long.
+Figure \ref{fig:fibox3d} shows the box and the construction drawings for the fibox case can be found in the appendix \ref{app:drawings_fibox_bottom}.
 
-
-
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{graphics/case.png}
+	\caption{3D Model of the Fibox case}
+	\label{fig:fibox3d}
+\end{figure}
