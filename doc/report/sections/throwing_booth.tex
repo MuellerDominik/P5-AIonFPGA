@@ -8,21 +8,21 @@ With the opening angle of the lens, the minimum required size of the back wall c
 In the following this size is called field of view.
 
 \begin{equation}
-	f_w = 2*a*tan\left( \frac{\vartheta}{2}\right) = 690mm
+	f_\text{w} = 2 \cdot a \cdot \tan\left( \frac{\vartheta}{2}\right) = \SI{690}{mm}
 	\label{eq:Fieldwith}
 \end{equation}
 
 Whereby the following applies:
 \begin{itemize}
-	\item $f_w$ = width of the field of view
-	\item $a$ = Distance camera to back panel = 630mm
-	\item $\vartheta$ = horizontal angle of view = 57.4° \cite{BaumerLense}
+	\item $f_\text{w}$ = width of the field of view
+	\item $a$ = Distance camera to back panel = \SI{630}{mm}
+	\item $\vartheta$ = horizontal angle of view = \SI{57.4}{\degree} \cite{BaumerLense}
 \end{itemize}
 
-Assuming that the picture format is 1280x1024, the height of the field of view can also be calculated:
+Assuming that the picture format is 1280 $\times$ \SI{1024}{px}, the height of the field of view ($f_\text{h}$) is equal to
 
 \begin{equation}
-	f_h = f_w*\frac{1024}{1280} = 552mm
+	f_\text{h} = f_\text{w} \cdot \frac{\SI{1024}{px}}{\SI{1280}{px}} = \SI{552}{mm}.
 	\label{eq:Fieldhight}
 \end{equation}
 
@@ -32,13 +32,8 @@ It is located on the right side of the back wall, which is further away from the
 If the throwing objects are hit through the hole in the rear wall, they land in a net.
 
 The throwing booth is drawn in the CAD tool Inventor.
-The camera is mounted on the Item profile with an aluminum mounting adapter which is shown in figure \ref{fig:mounting_adapter} and protected from damage with an aluminum sheet.
+The camera is mounted on an Item profile with an aluminum mounting adapter which is shown in figure \ref{fig:mounting_adapter} and protected from damage with an aluminum sheet.
 The drawings of these parts can be found in the appendix \ref{app:drawings_mounting_adapter} and \ref{app:drawings_camera_protection}.
-
-In order to detect and correct errors in thinking, the booth with all its components was designed using a 3D model.
-This also includes a case in which the electronics can be stowed away.
-The case is a container from Fibox with a transparent lid.
-The construction drawings can be found in the appendix \ref{app:drawings_fibox_bottom}.
 
 \begin{figure}[h]
 	\centering
@@ -46,5 +41,12 @@ The construction drawings can be found in the appendix \ref{app:drawings_fibox_b
 	\caption{Mounting Adapter}
 	\label{fig:mounting_adapter}
 \end{figure}
+
+In order to detect and correct errors in thinking, the booth with all its components was designed using a 3D model.
+This also includes a case in which the electronics can be stowed away.
+The case is a container from Fibox with a transparent lid.
+The construction drawings can be found in the appendix \ref{app:drawings_fibox_bottom}.
+
+
 
 
