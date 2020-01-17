@@ -1,6 +1,8 @@
 \subsubsection{Pixel Formats}
 \label{subsubsec:pixel_format}
 \todo[inline]{Citations, Include general naming scheme (RGGB, GRBG, GBRG and BGGR) right before the Baumer one?, Document that only 8bits are used?}
+% General naming scheme is: RGGB, GRBG, GBRG and BGGR
+% (https://en.ids-imaging.com/tl_files/downloads/techtip/TechTip_18MP-color-sensor-as-mono_EN.pdf)
 
 The Baumer industrial camera VCXU-13C uses the digital image sensor PYTHON1300 from ON Semiconductor and allows for the use of monochrome, raw and color pixel formats (see chapter \ref{sec:camera}).
 The digital image sensor itself has 1280 $\times$ \SI{1024}{px} that aquire brightness with a bit depth of \SI{10}{bit}.
@@ -9,7 +11,6 @@ These red, green and blue (RGB or BGR) color filters only transmit light with a 
 Due to the fact that the luminance perception of the human eye is most sensitive to green light, twice as many green filters are used as red and blue filters.
 The color filters are arranged in a Bayer color matrix $B$, as shown in figure \ref{subfig:bayerrg}.
 % https://www.cambridgeincolour.com/tutorials/camera-sensors.htm
-% (https://en.ids-imaging.com/tl_files/downloads/techtip/TechTip_18MP-color-sensor-as-mono_EN.pdf)
 
 \begin{figure}[H]
   \centering

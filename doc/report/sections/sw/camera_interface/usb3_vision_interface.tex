@@ -1,6 +1,6 @@
 \subsubsection{USB3 Vision Interface}
 \label{subsubsec:usb3_vision_interface}
-\todo[inline]{Citations, Table position, Text that leader is ignored!}
+\todo[inline]{Citations (GAPI for leader), Table position}
 
 The Baumer industrial camera VCXU-13C uses the USB3 Vision (U3V) interface with a maximum transfer rate of \SI{5}{Gbit/s} $\approx$ \SI{596}{MiB}.
 The max. frame rate is \SI{222}{fps} and the total pixel count is equal to
@@ -9,9 +9,12 @@ The max. frame rate is \SI{222}{fps} and the total pixel count is equal to
 \]
 
 To calculate the required data rate in bytes per second, equation \ref{eq:data_rate} can be used.
+Baumer transmits further information in addition to the actual image data (e.g. frame id, width and height).
+This metadata is located in the so-called leader and can be neglected in the calculations due to its relatively small size.
+% https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
 
 \begin{equation}
-  \text{Req. data rate} = \text{Pixel}_\text{tot} \cdot \text{Byte per pixel} \cdot \text{Frame rate}
+  \text{Req. data rate} = \text{Pixel}_\text{tot} \cdot \text{Bytes per pixel} \cdot \text{Frame rate}
   \label{eq:data_rate}
 \end{equation}
 
@@ -35,11 +38,3 @@ It is evident that due to the maximum transfer rate of \SI{596}{MiB} of the U3V 
     \bottomrule
   \end{tabular}
 \end{table}
-
-% Other information besides the actual image data, so-called metadata, is also transmitted
-% by default. This information is located in the leader and could for instance be:
-% Block ID (FrameID) Offset X
-% Timestamp Offset Y
-% PixelFormat Padding X
-% Width Padding Y
-% Height

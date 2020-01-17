@@ -2,10 +2,6 @@
 \label{subsubsec:image_change_detection}
 \todo[inline]{Citations, vspace before listings}
 
-% The implementation of the difference computation and the average among all the pixels is described here
-% Diff and Mean are done for every frame except the first one (FID = 0)
-% Comparison done after the threshold averaging (see chapter threshold)
-
 This section describes the implementation of the image change detection.
 The difference computation and the averaging among all the pixels is done for every frame except the first one ($\texttt{FID} \geq 1$).
 The threshold comparison and the throw detection is done for every frame after the threshold has been determined (see section \ref{subsubsec:threshold}).
@@ -87,14 +83,3 @@ However, this is not necessary, provided that the buffer size is large enough.
     pBufferFilled->QueueBuffer();
   }
 \end{lstlisting}
-
-
-
-
-
-% The implementation of the difference computation and the average among all the pixels is shown in listing \ref{lst:diff_computation_average}.
-
-% \begin{lstlisting}[style=C++, caption={Difference computation and average among all the pixels}, label=lst:diff_computation_average]
-%   cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);(*\label{lst:ln:abs_diff}*)
-%   mean_diff = cv::sum(cv_abs)[0] / (width * height);(*\label{lst:ln:mean_diff}*)
-% \end{lstlisting}
