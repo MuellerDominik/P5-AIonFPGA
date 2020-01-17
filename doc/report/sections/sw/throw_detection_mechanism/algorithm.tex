@@ -1,37 +1,67 @@
-\subsubsection{Image Change Detection Algorithm}
+% \subsubsection{Image Change Detection Algorithm}
+\subsubsection{Throw Detection Algorithm}
 \label{subsubsec:algorithm}
-% \todo[inline]{Citations, \{FID..FID+(N-1)\} or FID+\{0..N-1\}}
+% \todo[inline]{No citations?! Or OpenCV?! Or Baumer?!}
 % computation of the difference and comparison to a threshold to detect changes in the picture
 
-The image change detection algorithm
-
 % real-time
-% 200 fps => 5 ms
+% serial process, 200 fps => >5 ms to process each frame
+% not a lot of time for a complex (fancy) algorithm => simplest one possible is used
 % frame_id (FID) to keep track of ...
 % compared against threshold (if mean_diff < threshold, considered to be no change [equal sign])
-
 % uses 2 flags and 2 "pointers" to the buffer
-\begin{lstlisting}[style=C++]
-  // Configuration
-  const unsigned buff_size = 1000;
-  const unsigned avg_diffs = 8;
-  const double threshold_mult = 1.1;
-  const std::string output_path = "B:\\aionfpga\\temporary\\";
 
-  // Parameters
-  double mean_diff;
-  double threshold;
-  double sum_thresh = 0;
+% image change detection algorithm vs throw detection / throw detection mechanism / throw detection algorithm
+% for the throw detection algorithm a simple image change detection algorithm is used
 
-  unsigned frame_id = 0;
-  unsigned throw_bgn_idx, throw_end_idx;
-  bool throw_bgn = false;
-  bool throw_end = false;
+% Goal of the algo. is to extract the valid frames from the continous data stream
+% valid frames have object on them, invalid frames are empty (background)
 
-  // OpenCV
-  cv::Mat cv_buffer[buff_size];
-  cv::Mat cv_abs, cv_transformed;
-\end{lstlisting}
+The image change detection algorithm needs to work in real time.
+At a frame rate of \SI{200}{fps}, there is $<\SI{5}{ms}$ to process a single frame (without the use of parallel computing).
+Due to this time constraint, a simple image change detection algorithm is used.
+
+% \paragraph{Algorithm}
+\paragraph{Image Change Detection Algorithm}
+\vspace{-20pt}
+\begin{enumerate}
+  \item Compute the absolute difference between the current and the last frame
+  \item Compute the average among all the pixels of the difference
+  \item Compare the mean difference against a threshold value
+\end{enumerate}
+
+The implementation of the difference computation and the average among all pixels is described in section \ref{subsubsec:difference_computation}.
+The way the threshold value is obtained is documented in section \ref{subsubsec:threshold}.
+
+% Due to the in section {} mentioned bandwidth limitations of the USB3 interface the raw bayer is processed
+  % conversion to BGR8 takes too long! => use raw bayer for the detection
+% Saving images takes time + unnecessary => saving at the end!
+% Buffer handling by Baumer => large buffer sizes (here not a problem), could be handled by ourselves!
+  % handle this by ourselves on the Ultra96 board, due to memory size constrains
+The received images are stored in Baumer GAPI \texttt{Buffer} objects.
+The size of this Baumer image buffer (\texttt{BS}) determines the max. amount of valid frames $N$ that can be captured.
+% ----
+To keep track of the present and past frames, a frame id (\texttt{FID}) is utilized.
+Furthermore, two flags are used to mark the beginning and the end of a throw.
+
+Whenever the mean difference between two consecutive frames is greater than or equal to the threshold, they are considered to be different ($\ne$).
+Otherwise, the two frames are considered to be equal ($=$).
+
+Once two consecutive frames are different, the flag \texttt{throw\_bgn} is set to \texttt{true} and the current \texttt{FID} is saved in \texttt{throw\_bgn\_idx}.
+The current and all subsequent frames belong to the detected throw until two consecutive frames are no longer different.
+In this case, the flag \texttt{throw\_end} is set to \texttt{true} and the current \texttt{FID} is saved in \texttt{throw\_end\_idx}.
+
+Figure \ref{subfig:algorithm_general_case} shows the general case of the just described throw detection.
+% The variable $N$ denotes the amount of valid frames.
+To be considered a throw, the amount of valid frames $N$ must meet the following condition:
+% The max. amount of valid frames $N$ depends on the buffer size (\texttt{BS}) of the Baumer image buffer:
+\[
+  N \in \{1..(\text{BS}-2)\}
+\]
+An example with three valid frames ($N = 3$) is shown in figure \ref{subfig:algorithm_example_3}.
+
+% Last two frames are not valid!
+  % only possible to detect the end when there is no change an longer
 
 \begin{figure}[H]
   \centering
@@ -41,15 +71,27 @@ The image change detection algorithm
     \label{subfig:algorithm_general_case}
   \end{subfigure}
   \begin{subfigure}[b]{\textwidth}
-    \includegraphics[scale=0.85]{algorithm_ex}
-    \caption{Example with $N = 3$}
-    \label{subfig:algorithm_example}
+    \includegraphics[scale=0.85]{algorithm_ex_1}
+    \caption{Example of $N_\text{min} = 1$}
+    \label{subfig:algorithm_example_1}
+  \end{subfigure}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[scale=0.85]{algorithm_ex_3}
+    \caption{Example of three valid frames ($N = 3$)}
+    \label{subfig:algorithm_example_3}
   \end{subfigure}
   \caption{Illustration of the image change detection algorithm}
   \label{fig:change_detection_algorithm}
 \end{figure}
 
-\begin{lstlisting}[style=C++]
+Listing \ref{lst:throw_detection} shows the implementaion of the throw detection.
+Due to the specific implementation, it is possible to detect a single frame change.
+This means that the image changes between two consecutive frames and then stays the way it is (e.g. sudden change of the ambient light).
+Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).
+Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
+The first one by entering and the second one by leaving the frame.
+
+\begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
   if (mean_diff >= threshold) {
       if (!throw_bgn) {
         throw_bgn_idx = frame_id;
@@ -60,7 +102,7 @@ The image change detection algorithm
       throw_end_idx = frame_id;
 
       // Remove glitches (single frame changes)
-      if ((throw_end_idx - throw_bgn_idx) == 1) {
+      if ((throw_end_idx - throw_bgn_idx) == 1) {(*\label{lst:ln:glitch_removal}*)
         throw_bgn = false;
       } else {
         throw_end = true;
@@ -69,10 +111,42 @@ The image change detection algorithm
   }
 \end{lstlisting}
 
-% when no throw detected, release the Baumer buffer
+As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}). % \texttt{BGAPI2::Buffer}
+Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
+This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
+Such a reference is necessary to release the respective buffer entry.
+It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
+However, this is not necessary, provided that the buffer size is large enough.
 
-\begin{lstlisting}[style=C++]
+% BUG: Should not be released directly but with a delay of one!
+\begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]
   if (!throw_bgn) {
     pBufferFilled->QueueBuffer();
   }
 \end{lstlisting}
+
+
+
+
+
+% \begin{lstlisting}[style=C++]
+%   // Configuration
+%   const unsigned buff_size = 1000;
+%   const unsigned avg_diffs = 8;
+%   const double threshold_mult = 1.1;
+%   const std::string output_path = "B:\\aionfpga\\temporary\\";
+
+%   // Parameters
+%   double mean_diff;
+%   double threshold;
+%   double sum_thresh = 0;
+
+%   unsigned frame_id = 0;
+%   unsigned throw_bgn_idx, throw_end_idx;
+%   bool throw_bgn = false;
+%   bool throw_end = false;
+
+%   // OpenCV
+%   cv::Mat cv_buffer[buff_size];
+%   cv::Mat cv_abs, cv_transformed;
+% \end{lstlisting}
