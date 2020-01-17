@@ -1,0 +1,62 @@
+\subsubsection{Image Change Detection}
+\label{subsubsec:image_change_detection}
+% \todo[inline]{Citations, Picture of how the diff. is calculated or matrices?}
+% The implementation of the difference computation and the average among all the pixels is described here
+
+\paragraph{Difference Computation}
+
+\paragraph{Average among all the pixels}
+
+% computation of the difference how it is done with opencv
+
+% done for every frame except the first one (FID = 0)
+
+% after the threshold averaging (see chapter threshold) ?!
+
+\begin{lstlisting}[style=C++]
+  cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);
+  mean_diff = cv::sum(cv_abs)[0] / (width * height);
+\end{lstlisting}
+
+\paragraph{Comparison}
+
+Listing \ref{lst:throw_detection} shows the implementaion of the throw detection.
+Due to the specific implementation, it is possible to detect a single frame change.
+This means that the image changes between two consecutive frames and then stays the way it is (e.g. sudden change of the ambient light).
+Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).
+Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
+The first one by entering and the second one by leaving the frame.
+
+\begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
+  if (mean_diff >= threshold) {
+      if (!throw_bgn) {
+        throw_bgn_idx = frame_id;
+        throw_bgn = true;
+      }
+  } else {
+    if (throw_bgn) {
+      throw_end_idx = frame_id;
+
+      // Remove glitches (single frame changes)
+      if ((throw_end_idx - throw_bgn_idx) == 1) {(*\label{lst:ln:glitch_removal}*)
+        throw_bgn = false;
+      } else {
+        throw_end = true;
+      }
+    }
+  }
+\end{lstlisting}
+
+As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}).
+Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
+This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
+Such a reference is necessary to release the respective buffer entry.
+It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
+However, this is not necessary, provided that the buffer size is large enough.
+
+% BUG: Should not be released directly but with a delay of one!
+\begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]
+  if (!throw_bgn) {
+    pBufferFilled->QueueBuffer();
+  }
+\end{lstlisting}

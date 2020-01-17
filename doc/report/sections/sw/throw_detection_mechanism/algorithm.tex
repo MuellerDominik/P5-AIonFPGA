@@ -15,7 +15,7 @@
 
 % Algo: computation of the difference and comparison to a threshold to detect changes in the picture
 
-% what this sections does with the listings
+% what this sections describes
 
 % Due to the in section {} mentioned bandwidth limitations of the U3V interface the raw bayer is processed
   % conversion to BGR8 takes too long! => use raw bayer for the detection
@@ -47,9 +47,9 @@ Due to this time constraint, a simple image change detection algorithm is employ
   \item Compare the mean difference against a threshold value
 \end{enumerate}
 
-This section describes only selected parts of the implementation.
+This section describes how the throw detection works.
 The complete listing of the throw detection can be found in appendix \ref{app:throw_detection}.
-The implementation of the difference computation and the average among all the pixels is described in section \ref{subsubsec:difference_computation}.
+The implementation of the image change detection is described in section \ref{subsubsec:image_change_detection}.
 Furthermore, the way the threshold value is obtained is documented in section \ref{subsubsec:threshold}.
 
 Due to the bandwidth limitations of the U3V interface mentioned in section \ref{subsubsec:usb3_vision_interface}, the received images are in the raw Bayer pixel format.
@@ -57,9 +57,9 @@ A conversion from the Baumer \texttt{BayerRG8} to \texttt{BGR8} takes too long a
 Moreover, the valid images are only saved on the hard disk at the end of a throw, as this also takes a lot of time (see section \ref{subsubsec:saving_images}).
 
 For the above reasons, two image buffers are used.
-The received images are stored in Baumer \texttt{BGAPI2::Buffer} objects (see section \ref{subsubsec:baumer_buffer}).
+The received images are stored in Baumer \texttt{BGAPI2::Buffer} objects.
 To save the images later on, a circular buffer for OpenCV matrices (\texttt{cv::Mat}) is used.
-This is documented in section \ref{subsubsec:opencv_buffer}.
+This is documented in section \ref{subsubsec:buffers}.
 The size of those image buffers (\texttt{BS}) determines the max. amount of valid frames $N_\text{max}$ that can be captured.
 
 To keep track of the present and past frames, a frame id (\texttt{FID}) is utilized.
@@ -85,7 +85,7 @@ To properly detected a throw, the amount of valid frames $N$ must meet the condi
 In the current implementation, an image buffer size of \SI{1000}{} is used and therefore $N_\text{max} = \SI{998}{frames}$.
 An example of three valid frames ($N = 3$) is shown in figure \ref{subfig:algorithm_example_3}.
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
   \begin{subfigure}[b]{\textwidth}
     \includegraphics[scale=0.85]{algorithm}
@@ -105,44 +105,3 @@ An example of three valid frames ($N = 3$) is shown in figure \ref{subfig:algori
   \caption{Illustration of the throw detection}
   \label{fig:throw_detection}
 \end{figure}
-
-Listing \ref{lst:throw_detection} shows the implementaion of the throw detection.
-Due to the specific implementation, it is possible to detect a single frame change.
-This means that the image changes between two consecutive frames and then stays the way it is (e.g. sudden change of the ambient light).
-Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).
-Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
-The first one by entering and the second one by leaving the frame.
-
-\begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
-  if (mean_diff >= threshold) {
-      if (!throw_bgn) {
-        throw_bgn_idx = frame_id;
-        throw_bgn = true;
-      }
-  } else {
-    if (throw_bgn) {
-      throw_end_idx = frame_id;
-
-      // Remove glitches (single frame changes)
-      if ((throw_end_idx - throw_bgn_idx) == 1) {(*\label{lst:ln:glitch_removal}*)
-        throw_bgn = false;
-      } else {
-        throw_end = true;
-      }
-    }
-  }
-\end{lstlisting}
-
-As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}).
-Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
-This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
-Such a reference is necessary to release the respective buffer entry.
-It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
-However, this is not necessary, provided that the buffer size is large enough.
-
-% BUG: Should not be released directly but with a delay of one!
-\begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]
-  if (!throw_bgn) {
-    pBufferFilled->QueueBuffer();
-  }
-\end{lstlisting}
