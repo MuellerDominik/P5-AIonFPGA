@@ -1,32 +1,59 @@
 \subsubsection{Image Change Detection}
 \label{subsubsec:image_change_detection}
-% \todo[inline]{Citations, Picture of how the diff. is calculated or matrices?}
+\todo[inline]{Citations, vspace before listings}
+
 % The implementation of the difference computation and the average among all the pixels is described here
+% Diff and Mean are done for every frame except the first one (FID = 0)
+% Comparison done after the threshold averaging (see chapter threshold)
 
+This section describes the implementation of the image change detection.
+The difference computation and the averaging among all the pixels is done for every frame except the first one ($\texttt{FID} \geq 1$).
+The threshold comparison and the throw detection is done for every frame after the threshold has been determined (see section \ref{subsubsec:threshold}).
+
+% --------------------------------
 \paragraph{Difference Computation}
+The absolute difference pixel matrix $D$ can be calculated using equation \ref{eq:abs_diff}.
+The implementation uses the OpenCV function \texttt{cv::absdiff} to calculate the per-element absolute difference between the two pixel matrices and saves it into \texttt{cv\_abs}, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:abs_diff}.
+% https://docs.opencv.org/4.1.1/d2/de8/group__core__array.html#ga6fef31bc8c4071cbc114a758a2b79c14
 
+\begin{equation}
+  D = |I_\text{FID} - I_\text{FID-1}| \quad\quad \text{with} \quad\quad \text{FID} \geq 1
+  \label{eq:abs_diff}
+\end{equation}
+
+\begin{tabular}{rl}
+  $D =$ & absolute difference pixel matrix \\
+  $I =$ & image pixel matrix \\
+\end{tabular}
+
+% --------------------------------------
 \paragraph{Average among all the pixels}
+The mean absolute difference $\overline{\text{MD}}$ can be calculated using equation \ref{eq:mean_diff}.
+The implementation uses the OpenCV function \texttt{cv::sum} to return the sum of array elements for each channel independently, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:mean_diff}.
+Since the Baumer \texttt{BayerRG8} pixel format consists of only one channel, the zeroth element is used.
+% https://docs.opencv.org/4.1.1/d2/de8/group__core__array.html#ga716e10a2dd9e228e4d3c95818f106722
 
-% computation of the difference how it is done with opencv
+\begin{equation}
+  \overline{\text{MD}} = \frac{1}{w\cdot h} \cdot \sum\limits_{i=1}^h \sum\limits_{j=1}^w D_{i,j}
+  \label{eq:mean_diff}
+\end{equation}
 
-% done for every frame except the first one (FID = 0)
+\begin{tabular}{rl}
+  $\text{MD} =$ & mean absolute difference \\
+  $D =$ & absolute difference pixel matrix \\
+  $w =$ & width of the image in px \\
+  $h =$ & height of the image in px \\
+\end{tabular}
 
-% after the threshold averaging (see chapter threshold) ?!
-
-\begin{lstlisting}[style=C++]
-  cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);
-  mean_diff = cv::sum(cv_abs)[0] / (width * height);
-\end{lstlisting}
-
-\paragraph{Comparison}
-
-Listing \ref{lst:throw_detection} shows the implementaion of the throw detection.
+% --------------------------------------------------
+\paragraph{Threshold Comparison and Throw Detection}
+Listing \ref{lst:throw_detection} shows the implementaion of the threshold comparison and the throw detection.
 Due to the specific implementation, it is possible to detect a single frame change.
 This means that the image changes between two consecutive frames and then stays the way it is (e.g. sudden change of the ambient light).
 Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).
 Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
 The first one by entering and the second one by leaving the frame.
-
+\vspace{5pt}
 \begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
   if (mean_diff >= threshold) {
       if (!throw_bgn) {
@@ -53,10 +80,21 @@ This is due to the fact that no reference to past \texttt{Buffer} objects is kep
 Such a reference is necessary to release the respective buffer entry.
 It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
 However, this is not necessary, provided that the buffer size is large enough.
-
+\vspace{5pt}
 % BUG: Should not be released directly but with a delay of one!
 \begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]
   if (!throw_bgn) {
     pBufferFilled->QueueBuffer();
   }
 \end{lstlisting}
+
+
+
+
+
+% The implementation of the difference computation and the average among all the pixels is shown in listing \ref{lst:diff_computation_average}.
+
+% \begin{lstlisting}[style=C++, caption={Difference computation and average among all the pixels}, label=lst:diff_computation_average]
+%   cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);(*\label{lst:ln:abs_diff}*)
+%   mean_diff = cv::sum(cv_abs)[0] / (width * height);(*\label{lst:ln:mean_diff}*)
+% \end{lstlisting}

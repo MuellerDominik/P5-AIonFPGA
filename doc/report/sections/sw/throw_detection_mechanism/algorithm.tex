@@ -1,38 +1,6 @@
-% \subsubsection{Image Change Detection Algorithm}
-% \subsubsection{Throw Detection Algorithm}
 \subsubsection{Employed Algorithm}
 \label{subsubsec:algorithm}
 % \todo[inline]{No citations?! Or OpenCV?! Or Baumer?!}
-
-% image change detection algorithm vs throw detection / throw detection mechanism / throw detection algorithm => throw detection employs icda
-
-% Goal of the throw detection is to extract the valid frames of a throw from the continous data stream
-  % valid frames have object on them, invalid frames are empty (background)
-% real-time
-% serial process, 200 fps => >5 ms to process each frame
-% not a lot of time for a complex (fancy) algorithm => simplest one possible is used
-  % for the throw detection algorithm a simple image change detection algorithm is used
-
-% Algo: computation of the difference and comparison to a threshold to detect changes in the picture
-
-% what this sections describes
-
-% Due to the in section {} mentioned bandwidth limitations of the U3V interface the raw bayer is processed
-  % conversion to BGR8 takes too long! => use raw bayer for the detection
-% Saving images takes time + unnecessary => saving at the end!
-  % see section \ref
-
-% buffers
-
-% frame_id (FID) to keep track of ...
-% uses 2 flags and 2 "pointers" to the buffer
-
-% compared against threshold (if mean_diff < threshold, considered to be no change [equal sign])
-
-% throw begin and throw end, what happens
-
-% Why are the last two frames are not valid?
-  % only possible to detect the end when there is no change any longer
 
 The goal of the throw detection is to extract valid frames of a throw --- with objects on them --- from the continous data stream of the camera.
 Therefore, the throw detection needs to work in real time.
@@ -40,7 +8,7 @@ At a frame rate of \SI{200}{fps}, there is $<\SI{5}{ms}$ to process a single fra
 Due to this time constraint, a simple image change detection algorithm is employed.
 
 \paragraph{Image Change Detection Algorithm}
-\vspace{-20pt}
+\vspace{-15pt}
 \begin{enumerate}
   \item Compute the absolute difference between the current and the last frame
   \item Compute the average among all the pixels of the difference

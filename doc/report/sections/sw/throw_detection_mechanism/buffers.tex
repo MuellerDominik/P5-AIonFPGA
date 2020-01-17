@@ -2,12 +2,58 @@
 \label{subsubsec:buffers}
 % \todo[inline]{Citations}
 
-\paragraph{Baumer Image Buffer}
+Two different buffers with the same size (\texttt{BS}) are used.
+A Baumer image buffer and an OpenCV cirucular buffer.
+
+% For the above reasons, two image buffers are used.
+% The received images are stored in Baumer \texttt{BGAPI2::Buffer} objects.
+% To save the images later on, a circular buffer for OpenCV matrices (\texttt{cv::Mat}) is used.
+% This is documented in section \ref{subsubsec:buffers}.
+% The size of those image buffers (\texttt{BS}) determines the max. amount of valid frames $N_\text{max}$ that can be captured.
 
 % Buffer handling by Baumer => large buffer sizes (here not a problem), could be handled by ourselves!
   % handle this by ourselves on the Ultra96 board, due to memory size constrains
+\paragraph{Baumer Image Buffer}
+The received images can either be stored in \texttt{BGAPI2::Buffer}
+For convenience, the image buffer is hadeled by the Baumer GAPI.
+% https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
+
+% The function BGAPI2::Buffer::Buffer() creates a buffer the size of the maximum
+% payload of the camera that is connected. This enables switching between the pixel formats and various image details without the need for size checking or recreating the buffer,
+% since all formats will fit within the buffer. 
+% If a lot of buffer space is required for small image details (ROI); this creates a high memory
+% requirement, although only a small portion of this is actually used.
+
+% Alternatively the user may allocate the buffer memory on its own using the function BGAPI2::Buffer:: Buffer( void *pUserBuffer, bo_uint64
+% uUserBufferSize, void *pUserObj);
+% The responsibility to release the allocated memory then remains with the user.
+% The buffer size can be adjusted to the required payload size. This enables many buffers
+% with small image details (ROI).
+% The payload size for the current camera parameter settings (ROI or pixel format) can
+% be determined using the query pDevice->GetRemoteNode(„PayloadSize")-
+% >GetInt().
+
+
+\begin{table}[h]
+  \caption{Baumer image buffer memory utilization of the pixel formats \texttt{BayerRG8} and \texttt{BGR8}}
+  \label{tab:buffer_memory_utilization}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+     & \textbf{\texttt{BayerRG8}} & \textbf{\texttt{BGR8}} \\
+    \midrule
+    \textbf{Bytes per pixel} & \SI{1}{B} & \SI{3}{B} \\
+    \textbf{Pixel count} & \SI{1310720}{px} & \SI{1310720}{px} \\
+    \textbf{Pixel bytes} & \SI{1310720}{B} & \SI{3932160}{B} \\
+    \textbf{Buffer size} & \SI{3932160}{B} & \SI{3932160}{B} \\
+    \textbf{Utilization} & \SI{33}{\percent} & \SI{100}{\percent} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \paragraph{OpenCV Circular Buffer}
+
+% https://docs.opencv.org/4.1.1/d3/d63/classcv_1_1Mat.html#a51615ebf17a64c968df0bf49b4de6a3a
 
 % OpenCV \texttt{Mat}
 
@@ -15,6 +61,13 @@
   % only pointer to the baumer pixel data
   % copying would require a lot of space and time (which is not much to play with), thus main reason time
 % circular buffer graphic
+
+% https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
+
+\begin{equation}
+  I \equiv \text{FID} \pmod{\text{BS}}
+  \label{eq:indexing}
+\end{equation}
 
 \begin{lstlisting}[style=C++]
   cv_buffer[frame_id % buff_size] = cv::Mat(height, width, CV_8UC1, (void *) pBufferFilled->GetMemPtr());

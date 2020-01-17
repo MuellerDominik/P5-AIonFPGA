@@ -15,8 +15,8 @@ while (!throw_end) {
 		if (frame_id != 0) { // Skip the first frame
 
 			// Compute the mean pixel difference
-			cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);
-			mean_diff = cv::sum(cv_abs)[0] / (width * height);
+			cv::absdiff(cv_buffer[frame_id % buff_size], cv_buffer[(frame_id - 1) % buff_size], cv_abs);(*\label{lst:ln:abs_diff}*)
+			mean_diff = cv::sum(cv_abs)[0] / (width * height);(*\label{lst:ln:mean_diff}*)
 
 			// Average diffs over (`avg_diffs` + 1) frames
 			if (frame_id < avg_diffs) {

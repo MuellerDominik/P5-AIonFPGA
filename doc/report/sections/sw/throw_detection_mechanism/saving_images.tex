@@ -2,6 +2,7 @@
 \label{subsubsec:saving_images}
 % \todo[inline]{Citations, Why PNG and not BMP or JPG?}
 
+Saved to the specified \texttt{output\_path}.
 Resulting in the file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the amount of valid frames).
 
 \begin{lstlisting}[style=C++]
@@ -12,3 +13,12 @@ Resulting in the file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the a
 \end{lstlisting}
 
 % https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
+
+% Since RAW formats often have to be converted into other target formats, such as BGR8 or
+% BGR12, you can couple an external user buffer to this internal buffer, which then accepts
+% the transformed data.
+
+% Using pBuffer->GetMemPtr() accesses the RAW image and pBuffer
+% ->GetUserObj() accesses the memory area in the user buffer. In the example, the
+% external user buffer is of a size that equates to the target pixel format "BGR8", which
+% requires 3 bytes per pixel.

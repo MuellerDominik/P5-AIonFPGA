@@ -39,8 +39,8 @@ There are several modifications of the Bayer pattern that can be achieved by sim
 The pattern in figure \ref{subfig:bayergr} is achieved by shifting the initial pattern one pixel to the left, whereas the pattern in figure \ref{subfig:bayergb} is achieved by shifting the pattern one pixel up.
 
 Furthermore, there exist different naming conventions for the different Bayer patterns.
-Baumer labels the Bayer patterns after the color of the elements $B_{11}$ and $B_{12}$, resulting in the name \texttt{BayerRG} for figure \ref{subfig:bayerrg}.
-However, the Open Computer Vision Library (OpenCV) labels it after the elements $B_{22}$ and $B_{23}$, resulting in the name \texttt{BayerBG} for the same figure \ref{subfig:bayerrg}.
+Baumer labels the Bayer patterns after the color of the elements $B_{1,1}$ and $B_{1,2}$, resulting in the name \texttt{BayerRG} for figure \ref{subfig:bayerrg}.
+However, the Open Computer Vision Library (OpenCV) labels it after the elements $B_{2,2}$ and $B_{2,3}$, resulting in the name \texttt{BayerBG} for the same figure \ref{subfig:bayerrg}.
 % https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
 
 In order to create an RGB color image from the raw Bayer pattern image, a demosaicing (also ``debayering'') algorithm is necessary.
