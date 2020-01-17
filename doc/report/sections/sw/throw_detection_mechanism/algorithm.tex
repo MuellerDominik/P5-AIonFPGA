@@ -1,27 +1,44 @@
 % \subsubsection{Image Change Detection Algorithm}
-\subsubsection{Throw Detection Algorithm}
+% \subsubsection{Throw Detection Algorithm}
+\subsubsection{Employed Algorithm}
 \label{subsubsec:algorithm}
 % \todo[inline]{No citations?! Or OpenCV?! Or Baumer?!}
 
+% image change detection algorithm vs throw detection / throw detection mechanism / throw detection algorithm => throw detection employs icda
+
+% Goal of the throw detection is to extract the valid frames of a throw from the continous data stream
+  % valid frames have object on them, invalid frames are empty (background)
 % real-time
 % serial process, 200 fps => >5 ms to process each frame
 % not a lot of time for a complex (fancy) algorithm => simplest one possible is used
+  % for the throw detection algorithm a simple image change detection algorithm is used
+
 % Algo: computation of the difference and comparison to a threshold to detect changes in the picture
+
+% what this sections does with the listings
+
+% Due to the in section {} mentioned bandwidth limitations of the U3V interface the raw bayer is processed
+  % conversion to BGR8 takes too long! => use raw bayer for the detection
+% Saving images takes time + unnecessary => saving at the end!
+  % see section \ref
+
+% buffers
+
 % frame_id (FID) to keep track of ...
-% compared against threshold (if mean_diff < threshold, considered to be no change [equal sign])
 % uses 2 flags and 2 "pointers" to the buffer
 
-% image change detection algorithm vs throw detection / throw detection mechanism / throw detection algorithm
-% for the throw detection algorithm a simple image change detection algorithm is used
+% compared against threshold (if mean_diff < threshold, considered to be no change [equal sign])
 
-% Goal of the algo. is to extract the valid frames from the continous data stream
-% valid frames have object on them, invalid frames are empty (background)
+% throw begin and throw end, what happens
 
-The image change detection algorithm needs to work in real time.
+% Why are the last two frames are not valid?
+  % only possible to detect the end when there is no change any longer
+
+The goal of the throw detection is to extract valid frames of a throw --- with objects on them --- from the continous data stream of the camera.
+Therefore, the throw detection needs to work in real time.
 At a frame rate of \SI{200}{fps}, there is $<\SI{5}{ms}$ to process a single frame (without the use of parallel computing).
-Due to this time constraint, a simple image change detection algorithm is used.
+Due to this time constraint, a simple image change detection algorithm is employed.
 
-% \paragraph{Algorithm}
 \paragraph{Image Change Detection Algorithm}
 \vspace{-20pt}
 \begin{enumerate}
@@ -30,17 +47,21 @@ Due to this time constraint, a simple image change detection algorithm is used.
   \item Compare the mean difference against a threshold value
 \end{enumerate}
 
-The implementation of the difference computation and the average among all pixels is described in section \ref{subsubsec:difference_computation}.
-The way the threshold value is obtained is documented in section \ref{subsubsec:threshold}.
+This section describes only selected parts of the implementation.
+The complete listing of the throw detection can be found in appendix \ref{app:throw_detection}.
+The implementation of the difference computation and the average among all the pixels is described in section \ref{subsubsec:difference_computation}.
+Furthermore, the way the threshold value is obtained is documented in section \ref{subsubsec:threshold}.
 
-% Due to the in section {} mentioned bandwidth limitations of the USB3 interface the raw bayer is processed
-  % conversion to BGR8 takes too long! => use raw bayer for the detection
-% Saving images takes time + unnecessary => saving at the end!
-% Buffer handling by Baumer => large buffer sizes (here not a problem), could be handled by ourselves!
-  % handle this by ourselves on the Ultra96 board, due to memory size constrains
-The received images are stored in Baumer GAPI \texttt{Buffer} objects.
-The size of this Baumer image buffer (\texttt{BS}) determines the max. amount of valid frames $N$ that can be captured.
-% ----
+Due to the bandwidth limitations of the U3V interface mentioned in section \ref{subsubsec:usb3_vision_interface}, the received images are in the raw Bayer pixel format.
+A conversion from the Baumer \texttt{BayerRG8} to \texttt{BGR8} takes too long an therefore the raw frames are processed.
+Moreover, the valid images are only saved on the hard disk at the end of a throw, as this also takes a lot of time (see section \ref{subsubsec:saving_images}).
+
+For the above reasons, two image buffers are used.
+The received images are stored in Baumer \texttt{BGAPI2::Buffer} objects (see section \ref{subsubsec:baumer_buffer}).
+To save the images later on, a circular buffer for OpenCV matrices (\texttt{cv::Mat}) is used.
+This is documented in section \ref{subsubsec:opencv_buffer}.
+The size of those image buffers (\texttt{BS}) determines the max. amount of valid frames $N_\text{max}$ that can be captured.
+
 To keep track of the present and past frames, a frame id (\texttt{FID}) is utilized.
 Furthermore, two flags are used to mark the beginning and the end of a throw.
 
@@ -48,20 +69,21 @@ Whenever the mean difference between two consecutive frames is greater than or e
 Otherwise, the two frames are considered to be equal ($=$).
 
 Once two consecutive frames are different, the flag \texttt{throw\_bgn} is set to \texttt{true} and the current \texttt{FID} is saved in \texttt{throw\_bgn\_idx}.
-The current and all subsequent frames belong to the detected throw until two consecutive frames are no longer different.
+The current and all subsequent frames --- except for the last two --- belong to the detected throw until two consecutive frames are no longer different.
 In this case, the flag \texttt{throw\_end} is set to \texttt{true} and the current \texttt{FID} is saved in \texttt{throw\_end\_idx}.
 
-Figure \ref{subfig:algorithm_general_case} shows the general case of the just described throw detection.
-% The variable $N$ denotes the amount of valid frames.
-To be considered a throw, the amount of valid frames $N$ must meet the following condition:
-% The max. amount of valid frames $N$ depends on the buffer size (\texttt{BS}) of the Baumer image buffer:
-\[
-  N \in \{1..(\text{BS}-2)\}
-\]
-An example with three valid frames ($N = 3$) is shown in figure \ref{subfig:algorithm_example_3}.
+The last two frames are not valid due to the way the throw detection works.
+The first invalid frame occurs when the object leaves the image, as this is still a change in the image and thus not detected.
+The second invalid frame results from the fact that the following images are only now the same and therefore the current \texttt{FID} is saved.
 
-% Last two frames are not valid!
-  % only possible to detect the end when there is no change an longer
+Figure \ref{subfig:algorithm_general_case} shows the general case of the just described throw detection.
+As already mentioned, the max. amount of valid frames $N_\text{max}$ depends on the image buffer size (\texttt{BS}).
+To properly detected a throw, the amount of valid frames $N$ must meet the condition
+\[
+  N \in \{1..(\text{BS}-2)\}.
+\]
+In the current implementation, an image buffer size of \SI{1000}{} is used and therefore $N_\text{max} = \SI{998}{frames}$.
+An example of three valid frames ($N = 3$) is shown in figure \ref{subfig:algorithm_example_3}.
 
 \begin{figure}[H]
   \centering
@@ -80,8 +102,8 @@ An example with three valid frames ($N = 3$) is shown in figure \ref{subfig:algo
     \caption{Example of three valid frames ($N = 3$)}
     \label{subfig:algorithm_example_3}
   \end{subfigure}
-  \caption{Illustration of the image change detection algorithm}
-  \label{fig:change_detection_algorithm}
+  \caption{Illustration of the throw detection}
+  \label{fig:throw_detection}
 \end{figure}
 
 Listing \ref{lst:throw_detection} shows the implementaion of the throw detection.
@@ -111,7 +133,7 @@ The first one by entering and the second one by leaving the frame.
   }
 \end{lstlisting}
 
-As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}). % \texttt{BGAPI2::Buffer}
+As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}).
 Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
 This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
 Such a reference is necessary to release the respective buffer entry.
@@ -124,29 +146,3 @@ However, this is not necessary, provided that the buffer size is large enough.
     pBufferFilled->QueueBuffer();
   }
 \end{lstlisting}
-
-
-
-
-
-% \begin{lstlisting}[style=C++]
-%   // Configuration
-%   const unsigned buff_size = 1000;
-%   const unsigned avg_diffs = 8;
-%   const double threshold_mult = 1.1;
-%   const std::string output_path = "B:\\aionfpga\\temporary\\";
-
-%   // Parameters
-%   double mean_diff;
-%   double threshold;
-%   double sum_thresh = 0;
-
-%   unsigned frame_id = 0;
-%   unsigned throw_bgn_idx, throw_end_idx;
-%   bool throw_bgn = false;
-%   bool throw_end = false;
-
-%   // OpenCV
-%   cv::Mat cv_buffer[buff_size];
-%   cv::Mat cv_abs, cv_transformed;
-% \end{lstlisting}
