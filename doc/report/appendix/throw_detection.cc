@@ -10,7 +10,7 @@ while (!throw_end) {
 	} else {
 
 		// OpenCV matrix with Baumer BayerRG8 (OpenCV BayerBG) pixel format
-		cv_buffer[frame_id % buff_size] = cv::Mat(height, width, CV_8UC1, (void *)pBufferFilled->GetMemPtr());
+		cv_buffer[frame_id % buff_size] = cv::Mat(height, width, CV_8UC1, (void *)pBufferFilled->GetMemPtr());(*\label{lst:ln:buffer}*)
 
 		if (frame_id != 0) { // Skip the first frame
 
