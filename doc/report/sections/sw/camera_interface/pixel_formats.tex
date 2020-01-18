@@ -1,7 +1,6 @@
 \subsubsection{Pixel Formats}
 \label{subsubsec:pixel_format}
-% \todo[inline]{Citations, Include general naming scheme (RGGB, GRBG, GBRG and BGGR) right before the Baumer one?, Document that only 8bits are used?}
-% General naming scheme is: RGGB, GRBG, GBRG and BGGR
+% \todo[inline]{Citations, Document that only 8bits are used?}
 % (https://en.ids-imaging.com/tl_files/downloads/techtip/TechTip_18MP-color-sensor-as-mono_EN.pdf)
 
 The Baumer industrial camera VCXU-13C uses the digital image sensor PYTHON1300 from ON Semiconductor and allows for the use of monochrome, raw and color pixel formats (see chapter \ref{sec:camera}).
@@ -26,8 +25,8 @@ The Open Computer Vision Library (OpenCV) labels them after the elements $B_{2,2
 In order to create an RGB color image from the raw Bayer pattern image, a demosaicing (also ``debayering'') algorithm is necessary.
 The Baumer industrial camera VCXU-13C is able to transform the raw sensor data into the respective RGB or BGR values in real time.
 Another possibility is to do the required color space transformation with the OpenCV function \texttt{cv::cvtColor}.
-The required color space conversion code is \texttt{cv::COLOR\_BayerBG2BGR}.
-This will convert the raw Bayer pattern image into a BGR image (OpenCV uses the BGR instead of the standard RGB color space).
+Since OpenCV uses the BGR instead of the standard RGB color space, the required color space conversion code is \texttt{cv::COLOR\_BayerBG2BGR}.
+This will convert the raw Bayer pattern image into a BGR image.
 % https://docs.opencv.org/4.1.1/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab
 
 \begin{figure}[ht]

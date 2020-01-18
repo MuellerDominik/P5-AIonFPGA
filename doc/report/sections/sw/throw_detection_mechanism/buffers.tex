@@ -1,6 +1,6 @@
 \subsubsection{Image Buffers}
 \label{subsubsec:buffers}
-\todo[inline]{Citations}
+% \todo[inline]{Citations}
 
 Two different buffers with the same buffer size (\texttt{BS}) are used.
 A Baumer image buffer to receive the images and an OpenCV matrix cirucular buffer to manipulate and save the images.
@@ -12,13 +12,15 @@ In this case the maximum payload of the industrial camera is determined by the \
 As a result of this, the memory utilization for the Baumer \texttt{BayerRG8} pixel format is only \SI{33}{\percent}.
 Table \ref{tab:buffer_memory_utilization} shows the required memory as well as the memory utilization for the two pixel formats \texttt{BayerRG8} and \texttt{BGR8}.
 
+\clearpage
+
 It is possible to get \SI{100}{\percent} memory utilization with the Baumer \texttt{BayerRG8} pixel format.
 The necessary memory for the specific payload size can be allocated manually and then passed to the constructor.
 However, the software is not designed to run on an embedded system but on a computer.
 Every modern computer should have the required resources to run the program.
 % https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
 
-\begin{table}[h]
+\begin{table}[t]
   \caption{Baumer image buffer memory utilization for the pixel formats \texttt{BayerRG8} and \texttt{BGR8}}
   \label{tab:buffer_memory_utilization}
   \centering
@@ -56,7 +58,7 @@ This index $I$ depends on the frame id (\texttt{FID}) and is calculated using eq
   \label{eq:indexing}
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[hb]
   \centering
   \includegraphics[width=0.9\textwidth]{buffer}
   \caption{OpenCV matrix circular buffer}

@@ -1,6 +1,6 @@
 \subsubsection{Image Change Detection}
 \label{subsubsec:image_change_detection}
-\todo[inline]{Citations, vspace before listings}
+% \todo[inline]{Citations, vspace before listings}
 
 This section describes the implementation of the image change detection.
 The difference computation and the averaging among all the pixels is done for every frame except the first one ($\texttt{FID} \geq 1$).
@@ -50,7 +50,15 @@ Such a glitch is not a valid throw and shall therefore be ignored (see line \ref
 Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
 The first one by entering and the second one by leaving the frame.
 
-\vspace{5pt}
+As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}).
+Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
+This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
+Such a reference is necessary to release the respective buffer entry.
+It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
+However, this is not necessary, provided that the buffer size is large enough.
+
+\clearpage
+
 \begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
   if (mean_diff >= threshold) {
       if (!throw_bgn) {
@@ -71,14 +79,6 @@ The first one by entering and the second one by leaving the frame.
   }
 \end{lstlisting}
 
-As long as no throw is detected, the current Baumer \texttt{Buffer} object is released after each processed frame (see listing \ref{lst:buffer_release}).
-Whenever a glitch is removed, the size of the Baumer image buffer (\texttt{BS}) is reduced by one.
-This is due to the fact that no reference to past \texttt{Buffer} objects is kept.
-Such a reference is necessary to release the respective buffer entry.
-It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
-However, this is not necessary, provided that the buffer size is large enough.
-
-\vspace{5pt}
 % BUG: Should not be released directly but with a delay of one!
 \begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]
   if (!throw_bgn) {

@@ -44,6 +44,8 @@ The last two frames are not valid due to the way the throw detection works.
 The first invalid frame occurs when the object leaves the image, as this is still a change in the image and thus not detected.
 The second invalid frame results from the fact that the following images are only now the same and therefore the current \texttt{FID} is saved.
 
+\clearpage
+
 Figure \ref{subfig:algorithm_general_case} shows the general case of the just described throw detection.
 As already mentioned, the max. amount of valid frames $N_\text{max}$ depends on the image buffer size (\texttt{BS}).
 To properly detected a throw, the amount of valid frames $N$ must meet the condition
@@ -53,7 +55,7 @@ To properly detected a throw, the amount of valid frames $N$ must meet the condi
 In the current implementation, an image buffer size of \SI{1000}{} is used and therefore $N_\text{max} = \SI{998}{frames}$.
 An example of three valid frames ($N = 3$) is shown in figure \ref{subfig:algorithm_example_3}.
 
-\begin{figure}[h]
+\begin{figure}[t]
   \centering
   \begin{subfigure}[b]{\textwidth}
     \includegraphics[scale=0.85]{algorithm}

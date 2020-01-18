@@ -1,16 +1,23 @@
 \subsubsection{Baumer GAPI Overview}
 \label{subsubsec:baumer_gapi_overview}
-% \todo[inline]{Citations, List of available classes with description}
+% \todo[inline]{Citations}
+% Baumer GAPI Programmers Guide (needs to be downloaded)
 
-The Baumer GAPI provides main classes that represent the logical and physical components of the image processing system.
+% The Baumer GAPI provides main classes that represent the logical and physical components of the image processing system.
+% The Baumer GAPI is based on the Generic Interface for Cameras (GenICam) and provides main classes that represent the logical and physical components of the image processing system.
+% The Baumer GAPI is a package of several libraries and is based on the Generic Interface for Cameras (GenICam).
+The Baumer GAPI is based on the Generic Interface for Cameras (GenICam).
+It is a package of several libraries and the GenICam Producers (e.g. \texttt{bgapi2\_usb.cti}).
+% It is a package of several libraries and the so-called Producer files (e.g. \texttt{bgapi2\_usb.cti}).
+% The Producer file (e.g. \texttt{bgapi2\_usb.cti}) provides the main classes that represent the logical and physical components of the image processing system.
+It provides the main classes that represent the logical and physical components of the image processing system.
 Furthermore, it provides list classes to enable discovery and listing of the main objects.
 There are even some additional classes to transform images and for debugging.
 All classes are available through the namespace \texttt{BGAPI2} after including the header file \texttt{bgapi2\_genicam.hpp}.
-% Baumer GAPI Programmers Guide (needs to be downloaded)
 % https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
 
-\begin{table}[H]
-  \caption{Baumer GAPI classes overview}
+\begin{table}[hb]
+  \caption{Overview of the most important Baumer GAPI classes}
   \label{tab:baumer_gapi}
   \centering
   \begin{tabular}{llp{8.5cm}}
