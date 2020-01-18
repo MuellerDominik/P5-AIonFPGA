@@ -1,6 +1,6 @@
 \subsubsection{Pixel Formats}
 \label{subsubsec:pixel_format}
-\todo[inline]{Citations, Include general naming scheme (RGGB, GRBG, GBRG and BGGR) right before the Baumer one?, Document that only 8bits are used?}
+% \todo[inline]{Citations, Include general naming scheme (RGGB, GRBG, GBRG and BGGR) right before the Baumer one?, Document that only 8bits are used?}
 % General naming scheme is: RGGB, GRBG, GBRG and BGGR
 % (https://en.ids-imaging.com/tl_files/downloads/techtip/TechTip_18MP-color-sensor-as-mono_EN.pdf)
 
@@ -12,36 +12,15 @@ Due to the fact that the luminance perception of the human eye is most sensitive
 The color filters are arranged in a Bayer color matrix $B$, as shown in figure \ref{subfig:bayerrg}.
 % https://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}[b]{0.3\textwidth}
-    \centering
-    \includegraphics[scale=1]{bayerrg}
-    \caption{Baumer \texttt{BayerRG}}
-    \label{subfig:bayerrg}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.3\textwidth}
-    \centering
-    \includegraphics[scale=1]{bayergr}
-    \caption{Baumer \texttt{BayerGR}}
-    \label{subfig:bayergr}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.3\textwidth}
-    \centering
-    \includegraphics[scale=1]{bayergb}
-    \caption{Baumer \texttt{BayerGB}}
-    \label{subfig:bayergb}
-  \end{subfigure}
-  \caption{Bayer color matrices $B$}
-  \label{fig:bayer}
-\end{figure}
-
 There are several modifications of the Bayer pattern that can be achieved by simply shifiting the pixels around.
 The pattern in figure \ref{subfig:bayergr} is achieved by shifting the initial pattern one pixel to the left, whereas the pattern in figure \ref{subfig:bayergb} is achieved by shifting the pattern one pixel up.
 
-Furthermore, there exist different naming conventions for the different Bayer patterns.
+The different Bayer patterns are usually named after the color of the elements $B_{1,1}$, $B_{1,2}$, $B_{2,1}$ and $B_{2,2}$.
+This results in the four possible patterns \texttt{RGGB}, \texttt{GRBG}, \texttt{GBRG} and \texttt{BGGR}.
+
+However, there exist different naming conventions for the different Bayer patterns.
 Baumer labels the Bayer patterns after the color of the elements $B_{1,1}$ and $B_{1,2}$, resulting in the name \texttt{BayerRG} for figure \ref{subfig:bayerrg}.
-However, the Open Computer Vision Library (OpenCV) labels it after the elements $B_{2,2}$ and $B_{2,3}$, resulting in the name \texttt{BayerBG} for the same figure \ref{subfig:bayerrg}.
+The Open Computer Vision Library (OpenCV) labels them after the elements $B_{2,2}$ and $B_{2,3}$, resulting in the name \texttt{BayerBG} for the same figure \ref{subfig:bayerrg}.
 % https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
 
 In order to create an RGB color image from the raw Bayer pattern image, a demosaicing (also ``debayering'') algorithm is necessary.
@@ -50,3 +29,27 @@ Another possibility is to do the required color space transformation with the Op
 The required color space conversion code is \texttt{cv::COLOR\_BayerBG2BGR}.
 This will convert the raw Bayer pattern image into a BGR image (OpenCV uses the BGR instead of the standard RGB color space).
 % https://docs.opencv.org/4.1.1/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[scale=1]{bayerrg}
+    \caption{\texttt{RGGB} (Baumer \texttt{BayerRG})}
+    \label{subfig:bayerrg}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[scale=1]{bayergr}
+    \caption{\texttt{GRBG} (Baumer \texttt{BayerGR})}
+    \label{subfig:bayergr}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[scale=1]{bayergb}
+    \caption{\texttt{GBRG} (Baumer \texttt{BayerGB})}
+    \label{subfig:bayergb}
+  \end{subfigure}
+  \caption{Bayer color matrices $B$}
+  \label{fig:bayer}
+\end{figure}
