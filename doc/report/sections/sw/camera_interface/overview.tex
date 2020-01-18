@@ -3,20 +3,16 @@
 % \todo[inline]{Citations}
 % Baumer GAPI Programmers Guide (needs to be downloaded)
 
-% The Baumer GAPI provides main classes that represent the logical and physical components of the image processing system.
-% The Baumer GAPI is based on the Generic Interface for Cameras (GenICam) and provides main classes that represent the logical and physical components of the image processing system.
-% The Baumer GAPI is a package of several libraries and is based on the Generic Interface for Cameras (GenICam).
 The Baumer GAPI is based on the Generic Interface for Cameras (GenICam).
 It is a package of several libraries and the GenICam Producers (e.g. \texttt{bgapi2\_usb.cti}).
-% It is a package of several libraries and the so-called Producer files (e.g. \texttt{bgapi2\_usb.cti}).
-% The Producer file (e.g. \texttt{bgapi2\_usb.cti}) provides the main classes that represent the logical and physical components of the image processing system.
 It provides the main classes that represent the logical and physical components of the image processing system.
 Furthermore, it provides list classes to enable discovery and listing of the main objects.
 There are even some additional classes to transform images and for debugging.
 All classes are available through the namespace \texttt{BGAPI2} after including the header file \texttt{bgapi2\_genicam.hpp}.
 % https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
 
-\begin{table}[hb]
+% https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
+\begin{table}[ht]
   \caption{Overview of the most important Baumer GAPI classes}
   \label{tab:baumer_gapi}
   \centering
@@ -24,17 +20,17 @@ All classes are available through the namespace \texttt{BGAPI2} after including 
     \toprule
     \textbf{Main Classes} & \textbf{List Classes} & \textbf{Description} \\
     \midrule
-     & \textbf{\texttt{SystemList}} & The \texttt{SystemList} class is used to discover objects of the \texttt{System} class (Producer) \\
+     & \textbf{\texttt{SystemList}} & The class \texttt{SystemList} is used to discover objects of the class \texttt{System} (Producer). \\
     \midrule
-    \textbf{\texttt{System}} & \textbf{\texttt{InterfaceList}} & The \texttt{System} class is the abstraction of the Producer and used to discover objects of the \texttt{Interface} class \\
+    \textbf{\texttt{System}} & \textbf{\texttt{InterfaceList}} & The class \texttt{System} is the abstraction of the Producer and used to discover objects of the class \texttt{Interface}. \\
     \midrule
-    \textbf{\texttt{Interface}} & \textbf{\texttt{DeviceList}} & The Interface class represents a physical interface (e.g. USB) and can be used to discover objects of the \texttt{Device} class \\
+    \textbf{\texttt{Interface}} & \textbf{\texttt{DeviceList}} & The class \texttt{Interface} represents a physical interface (e.g. USB) and can be used to discover objects of the class \texttt{Device}. \\
     \midrule
-    \textbf{\texttt{Device}} & \textbf{\texttt{DataStream}} & The device class is used to configure the camera and can be used to discover objects of the \texttt{DataStream} class \\
+    \textbf{\texttt{Device}} & \textbf{\texttt{DataStream}} & The class \texttt{Device} is used to configure the camera and can also be used to discover objects of the class \texttt{DataStream}. \\
     \midrule
-    \textbf{\texttt{DataStream}} & \textbf{\texttt{BufferList}} & This class represents a data stream from the camera to the host and can be used to discover objects of the \texttt{Buffer} class \\
+    \textbf{\texttt{DataStream}} & \textbf{\texttt{BufferList}} & The class \texttt{DataStream} represents a data stream from the camera to the host and can be used to list objects of the class \texttt{Buffer}. \\
     \midrule
-    \textbf{\texttt{Buffer}} &  & The \texttt{Buffer} class encapsulates a single memory buffer \\
+    \textbf{\texttt{Buffer}} &  & The \texttt{Buffer} class represents a single memory buffer and acts as the target for the image acquisition. \\
     \bottomrule
   \end{tabular}
 \end{table}
