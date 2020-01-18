@@ -1,4 +1,4 @@
-<img src="https://github.com/MuellerDominik/P5-AIonFPGA/blob/master/doc/report/graphics/top_assembly.png" align="right" alt="Throwing Booth Render" height="240">
+<img src="https://github.com/MuellerDominik/P5-AIonFPGA/blob/master/doc/report/graphics/top_assembly.png" align="right" alt="Throwing Booth Render" height="220">
 
 # P5-AIonFPGA
 
