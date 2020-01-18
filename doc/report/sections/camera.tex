@@ -13,18 +13,34 @@ This results in the rolling shutter effect when the image changes.
 On the one hand this effect is noticeable when the light flickers quickly.
 For example the upper part of an image can be brighter than the lower part.
 On the other hand there are problems with moving pictures.
-The lower part of the image was taken at a later time, so the object appears distorted \cite{GlobalRollingShutter}.
+The lower part of the image was taken at a later time, so the object appears distorted \cite{global_rolling_shutter}.
 
 To eliminate this problem, some cameras feature the global shutter. 
 This takes all pixels at the same time and stores them. 
 Thus no distortions in the image occur.
 
 This can be shown well with an example.
-In the figure subfig1 is a recording of a ball with rolling shutter. 
-Figure subfig2 shows the same object, taken with a global shutter camera.
+In the figure \ref{subfig:rollingshutter} is a recording of a ball with rolling shutter. 
+Figure \ref{subfig:globalshutter} shows the same object, taken with a global shutter camera.
 The distortion from the rolling shutter is clearly visible and distorts the effective object.
 
-\todo[inline]{Bild Rolling shutter vs global shutter einfügen, subfig1/2 verweise korrigieren}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.3\textwidth]{rollingshutter}
+		\caption{Rolling shutter}
+		\label{subfig:rollingshutter}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.3\textwidth]{globalshutter}
+		\caption{Global shutter}
+		\label{subfig:globalshutter}
+	\end{subfigure}
+	\caption{Difference rolling shutter and global shutter camera \cite{shuttermode}}
+	\label{fig:shuttermode}
+\end{figure}
 
 \subsection{Baumers industrial camera}
 \label{subsec:baumer_cam}
@@ -39,7 +55,7 @@ To ensure that an image is always obtained even from fast objects, the maximum d
 \end{equation}
 
 It is assumed that the object is thrown in the last quarter of the booth and the maximum throwing speed is \SI{30}{m/s}.
-This speed is approximately half the speed of the fastest baseball throw and is more or less attainable for an adult with the objects present \cite{SpeedBaseball}.
+This speed is approximately half the speed of the fastest baseball throw and is more or less attainable for an adult with the objects present \cite{speed_baseball}.
 
 From equation \ref{eq:needed_T} it can be seen that the camera needs a frame rate which is higher than
 
@@ -63,7 +79,7 @@ The VCXU-13C has global shutter.
 Furthermore it has an USB 3.0 interface for data transfer.
 This is required because the Ultra96-V2 does not support an Ethernet interface.
 The camera's frame rate is \SI{222}{fps}, which guarantees at least three pictures of each throw.
-The minimum exposure time is \SI{20}{\micro s} \cite{BaumerCam}.
+The minimum exposure time is \SI{20}{\micro s} \cite{baumer_cam}.
 
 The camera requires a lens as well.
 Suitable for the camera is the lens ZVL-FL-HC0614-2M, which is also manufactured by Baumer.
@@ -85,6 +101,6 @@ The illumination is therefore very satisfying.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.3\textwidth]{graphics/brightness_level.pdf}
-	\caption{Brightness Distribution according to Stemmer \cite{StemmerDatasheet}}
+	\caption{Brightness Distribution according to Stemmer \cite{stemmer_datasheet}}
 	\label{fig:lighting_LEDBAR}
 \end{figure}
