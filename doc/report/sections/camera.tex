@@ -1,6 +1,5 @@
 \section{Camera}
 \label{sec:camera}
-\todo[inline]{Dominik / Nico}
 \subsection{Webcam}
 \label{subsec:webcam}
 A simple webcam is not enough to capture fast moving objects with sufficient quality. 
@@ -25,11 +24,67 @@ In the figure subfig1 is a recording of a ball with rolling shutter.
 Figure subfig2 shows the same object, taken with a global shutter camera.
 The distortion from the rolling shutter is clearly visible and distorts the effective object.
 
-\todo[inline]{Bild Rolling shutter vs global shutter einfügen}
+\todo[inline]{Bild Rolling shutter vs global shutter einfügen, subfig1/2 verweise korrigieren}
 
 \subsection{Baumers industrial camera}
 \label{subsec:baumer_cam}
 
+In addition to the global shutter requirement, the camera must also meet other specifications.
+
+To ensure that an image is always obtained even from fast objects, the maximum duration between two images is
+
+\begin{equation}
+  T_\text{max} = \frac{f_\text{w} \cdot 0.75}{v_\text{max}} = \frac{\SI{0.69}{m} \cdot 0.75}{\SI{30}{\frac{m}{s}}} = \SI{17.25}{ms}.
+  \label{eq:needed_T}
+\end{equation}
+
+It is assumed that the object is thrown in the last quarter of the booth and the maximum throwing speed is \SI{30}{m/s}.
+This speed is approximately half the speed of the fastest baseball throw and is more or less attainable for an adult with the objects present \cite{SpeedBaseball}.
+
+From equation \ref{eq:needed_T} it can be seen that the camera needs a frame rate which is higher than
+
+\begin{equation}
+  f_\text{min} = \frac{1}{T_\text{max}} = \frac{1}{\SI{17.25}{ms}} = \SI{58}{fps}.
+  \label{eq:needed_fps}
+\end{equation}
+
+In order to capture the contours of the objects being thrown as detailed as possible, the motion blur must be kept to a minimum. 
+This can be achieved by short exposure time. 
+With the assumption that the motion blur should be smaller than or equal to \SI{3}{cm}, there results a maximum exposure time of the camera of
+
+\begin{equation}
+  t_\text{exp} = \frac{s_\text{max}}{v_\text{max}} = \frac{\SI{0.03}{m}}{\SI{30}{\frac{m}{s}}} = \SI{1}{ms}.
+  \label{eq:texp}
+\end{equation}
+
+In this project a VCXU-13C camera from Baumer is used.
+The Baumer company produces various sensors, such as CMOS sensors with different specifications.
+The VCXU-13C has global shutter.
+Furthermore it has an USB 3.0 interface for data transfer.
+This is required because the Ultra96-V2 does not support an Ethernet interface.
+The camera's frame rate is \SI{222}{fps}, which guarantees at least three pictures of each throw.
+The minimum exposure time is \SI{20}{\micro s} \cite{BaumerCam}.
+
+The camera requires a lens as well.
+Suitable for the camera is the lens ZVL-FL-HC0614-2M, which is also manufactured by Baumer.
+The aperture is manually operated to focus the images.
+
 \subsection{Lighting}
 \label{subsec:Lighting}
-\todo[inline]{mit Intensität, nach aussen immer schwächer}
+The more light there is, the shorter the lighting time can be selected.
+This results in a clearer image, which is an advantage in image recognition.
+In order for the objects to be as independent of the lighting as possible, the lighting must not flicker and the field of view should be illuminated as uniformly as possible.
+
+The SVL BAR LIGHT LHF300-WHI from Stemmer Imaging meets these requirements.
+A completely uniformly illuminated image cannot be achieved with a single LED bar.
+In the data sheet Stemmer specifies the illumination of a \SI{1}{m} $\times$ \SI{1}{m} image section according to graphic \ref{fig:lighting_LEDBAR}.
+The distance from the camera to the measuring surface is \SI{0.5}{m}.
+The green frame corresponds to the field of view.
+The illumination is therefore very satisfying.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{graphics/brightness_level.pdf}
+	\caption{Brightness Distribution according to Stemmer \cite{StemmerDatasheet}}
+	\label{fig:lighting_LEDBAR}
+\end{figure}
