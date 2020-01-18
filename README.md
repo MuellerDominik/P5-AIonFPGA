@@ -10,8 +10,11 @@ This repository is structured as follows:
 .
 ├── cad                 # CAD files of the Throwing Booth
 ├── doc                 # Documentation
-│   └── project-plan    # Project Plan
+│   ├── project-plan    # Project Plan
+│   └── report          # Project Report
 └── sw                  # Software
+    ├── cam_interface   # Camera Interface
+    └── python          # Python Scripts
 ```
 
 ## Downloads

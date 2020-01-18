@@ -39,15 +39,20 @@ ax2.set_yticks([])
 ax2.scatter(t2, diff, color=(0, 0.4470, 0.7410))
 ax2.set_ylim(-0.5, 3)
 
+cut_height = 1.1
 ax1.arrow(-0.5, 0, 9, 0, color='black', head_width=0.1, head_length=0.2)
 ax1.text(8.8, -0.1, 'FID', ha='center', va='top')
-ax1.arrow(0, -0.5, 0, 3.5, color='black', head_width=0.1, head_length=0.2)
-ax1.text(-0.3, 3.4, 'DIFF', ha='center', va='top')
+ax1.arrow(0, -0.5, 0, cut_height+0.5, color='black', head_width=0, head_length=0)
+ax1.arrow(0, cut_height+0.1, 0, 3-cut_height-0.1, color='black', head_width=0.1, head_length=0.2)
+ax1.text(-0.3, 3.4, '$\\overline{MD}$', ha='center', va='top')
+
+ax1.arrow(-0.1, cut_height-0.1, 0.2, 0.2, color='black', head_width=0, head_length=0)
+ax1.arrow(-0.1, cut_height, 0.2, 0.2, color='black', head_width=0, head_length=0)
 
 ax1.hlines(avg, -0.5, 8.5, color='gray', linestyles='dashed')
-ax1.text(3, avg+0.1, 'MEAN DIFF', ha='center',)
+ax1.text(3, avg+0.1, 'AVG. DIFF', ha='center',)
 ax1.hlines(2.6, -0.5, 8.5, color='gray', linestyles='dashed')
-ax1.text(3, 2.7, 'THRESHOLD = 1.1 $\\cdot$ MEAN DIFF', ha='center')
+ax1.text(3, 2.7, 'THRESHOLD = 1.1 $\\cdot$ AVG. DIFF', ha='center')
 
 ax1.text(0.1, -0.1, 0, ha='left', va='top')
 for i in range(1, 9):

@@ -49,6 +49,7 @@ This means that the image changes between two consecutive frames and then stays 
 Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).
 Figure \ref{subfig:algorithm_example_1} shows that a valid throw of an object would create at least two changes between individual frames.
 The first one by entering and the second one by leaving the frame.
+
 \vspace{5pt}
 \begin{lstlisting}[style=C++, caption={Throw detection and glitch removal}, label=lst:throw_detection]
   if (mean_diff >= threshold) {
@@ -76,6 +77,7 @@ This is due to the fact that no reference to past \texttt{Buffer} objects is kep
 Such a reference is necessary to release the respective buffer entry.
 It would be easy to solve this by keeping track of at least one past \texttt{Buffer} object.
 However, this is not necessary, provided that the buffer size is large enough.
+
 \vspace{5pt}
 % BUG: Should not be released directly but with a delay of one!
 \begin{lstlisting}[style=C++, caption={Release of the filled Baumer \texttt{Buffer} object}, label=lst:buffer_release]

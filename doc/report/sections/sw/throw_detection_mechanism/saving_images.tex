@@ -1,24 +1,25 @@
 \subsubsection{Saving Images}
 \label{subsubsec:saving_images}
-% \todo[inline]{Citations, Why PNG and not BMP or JPG?}
+% \todo[inline]{Citations}
 
-Saved to the specified \texttt{output\_path}.
-Resulting in the file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the amount of valid frames).
+Listing \ref{lst:saving_images} shows the implementation of the image saving.
+The required color space transformation is done with the OpenCV function \texttt{cv::cvtColor} for each valid frame individually (see line~\ref{lst:ln:color_transformation}).
+Since the Baumer \texttt{BayerRG} pixel format is used, the required color space conversion code is \texttt{cv::COLOR\_BayerBG2BGR} (see section \ref{subsubsec:pixel_format}).
+Afterwards, the OpenCV function \texttt{cv::imwrite} is used to save the image to the specified directory \texttt{output\_path} (see line~\ref{lst:ln:image_saving}).
+The images are named in numerical order, starting at zero.
+This results in the image file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the amount of valid frames).
+% https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
 
-\begin{lstlisting}[style=C++]
+\vspace{5pt}
+\begin{lstlisting}[style=C++, caption={Saving the images}, label=lst:saving_images]
   for (int i = throw_bgn_idx; i < (throw_end_idx - 1); ++i) {
-    cv::cvtColor(cv_buffer[i % buff_size], cv_transformed, cv::COLOR_BayerBG2BGR);
-    cv::imwrite(output_path + std::to_string(i - throw_bgn_idx) + ".png", cv_transformed);
+    cv::cvtColor(cv_buffer[i % buff_size], cv_transformed, cv::COLOR_BayerBG2BGR);(*\label{lst:ln:color_transformation}*)
+    cv::imwrite(output_path + std::to_string(i - throw_bgn_idx) + ".png", cv_transformed);(*\label{lst:ln:image_saving}*)
   }
 \end{lstlisting}
 
-% https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
-
-% Since RAW formats often have to be converted into other target formats, such as BGR8 or
-% BGR12, you can couple an external user buffer to this internal buffer, which then accepts
-% the transformed data.
-
-% Using pBuffer->GetMemPtr() accesses the RAW image and pBuffer
-% ->GetUserObj() accesses the memory area in the user buffer. In the example, the
-% external user buffer is of a size that equates to the target pixel format "BGR8", which
-% requires 3 bytes per pixel.
+The images are saved in the Portable Network Graphics (PNG) file format.
+The advante over bitmap (BMP) and Joint Photographic Experts Group (JPEG) images is the lossless compression.
+PNG images require less space than BMP images and offer better quality than the lossy JPEG images.
+If needed, PNG images can always be converted to BMP images and vice versa.
+% https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types

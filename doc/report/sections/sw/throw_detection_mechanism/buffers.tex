@@ -72,3 +72,14 @@ For convenience, the image buffer is hadeled by the Baumer GAPI.
 \begin{lstlisting}[style=C++]
   cv_buffer[frame_id % buff_size] = cv::Mat(height, width, CV_8UC1, (void *) pBufferFilled->GetMemPtr());
 \end{lstlisting}
+
+
+% Since RAW formats often have to be converted into other target formats, such as BGR8 or
+% BGR12, you can couple an external user buffer to this internal buffer, which then accepts
+% the transformed data.
+
+% Using pBuffer->GetMemPtr() accesses the RAW image and pBuffer
+% ->GetUserObj() accesses the memory area in the user buffer. In the example, the
+% external user buffer is of a size that equates to the target pixel format "BGR8", which
+% requires 3 bytes per pixel.
+
