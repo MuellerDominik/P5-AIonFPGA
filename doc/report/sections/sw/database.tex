@@ -3,3 +3,35 @@
 
 % why using a DB, since the picture names contain all the info already (easy of use in scripts)
 % MySQL DB description with column names and data types
+
+All images contain their respective labels in the file name.
+% This is useful when manually looking through them but not optimal for a program.
+This is useful for manually going through them, but not optimal for a program.
+% The program would have to list all files and crawl through the file names.
+The program would have to crawl the directory containing the images and parse the file names.
+% This requires operations that involve the file system which are usually very slow.
+This requires file system related operations, which are usually very slow.
+The solution is to use a database that is designed to read and write such data.
+% For this reason, a \textit{MySQL} database is used to store the labels and the file names.
+For this reason, a MySQL database is used to store the labels, file names and other metadata.
+Table \ref{tab:tab_frames_structure} lists all columns of the database table \texttt{aionfpga.frames}.
+
+\begin{table}[hb]
+  \caption{Structure of the database table \texttt{aionfpga.frames}}
+  \label{tab:tab_frames_structure}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Column} & \textbf{Type} & \textbf{Length} & \textbf{Description} \\
+    \midrule
+    id & \texttt{INT} &  & Sequence number (unique identifier) \\
+    timestamp & \texttt{INT} &  & The Unix timestamp at the time of the throw \\
+    throwid & \texttt{INT} &  & Throw sequence number \\
+    frameid & \texttt{INT} &  & Frame sequence number within a throw \\
+    frame & \texttt{VARCHAR} & 255 & The file name of the frame \\
+    object & \texttt{VARCHAR} & 255 & The name of the object in the frame (label) \\
+    framegood & \texttt{INT} &  & \texttt{0}: frame unusable | \texttt{1}: frame usable \\
+    partial & \texttt{INT} &  & \texttt{0}: object fully visible | \texttt{1}: object partially visible \\
+    \bottomrule
+  \end{tabular}
+\end{table}

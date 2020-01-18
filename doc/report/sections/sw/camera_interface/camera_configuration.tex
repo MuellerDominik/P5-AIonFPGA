@@ -2,27 +2,25 @@
 \label{subsubsec:camera_configuration}
 % \todo[inline]{}
 
+The camera configuration should be the same during data collection and deployment.
+For this reason, the optimal parameters have been carefully selected.
+Table \ref{tab:config} lists the important configurations and their respective values.
+
 \begin{table}[hb]
-  \caption{Camera Configuration}
+  \caption{Camera configuration}
   \label{tab:config}
   \centering
-  \begin{tabular}{llp{7.5cm}}
+  \begin{tabular}{lll}
     \toprule
-    \textbf{Feature} & \textbf{Value} & \textbf{Description} \\
+    \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
     \midrule
-    BalanceWhiteAuto & \texttt{Once} & Text \\
-    \midrule
-    Gain & 4 & Text \\
-    \midrule
-    ExposureTime & \SI{250}{\mu\second} & Text \\
-    \midrule
-    AcquisitionFrameRateEnable & \texttt{true} & Text \\
-    \midrule
-    AcquisitionFrameRate & \SI{200}{fps} & Text \\
-    \midrule
-    TriggerMode & \texttt{Off} & Text \\
-    \midrule
-    PixelFormat & \texttt{BayerRG8} & Text \\
+    BalanceWhiteAuto & \texttt{Once} & Perform the white balance once during setup \\
+    Gain & 4 & For the max. brightness, the max. gain is used \\
+    ExposureTime & \SI{250}{\micro\second} & A short exposure time of \SI{250}{\micro\second} is used \\
+    AcquisitionFrameRateEnable & \texttt{true} & Enable fixed frame rate \\
+    AcquisitionFrameRate & \SI{200}{fps} & Set fixed frame rate to \SI{200}{fps} \\
+    TriggerMode & \texttt{Off} & Use no trigger (free run) \\
+    PixelFormat & \texttt{BayerRG8} & Use the raw Baumer \texttt{BayerRG8} pixel format \\
     \bottomrule
   \end{tabular}
 \end{table}
