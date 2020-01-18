@@ -13,7 +13,7 @@ This repository is structured as follows:
 │   ├── project-plan    # Project Plan
 │   └── report          # Project Report
 └── sw                  # Software
-    ├── cam_interface   # Camera Interface
+    ├── cam-interface   # Camera Interface
     └── python          # Python Scripts
 ```
 
