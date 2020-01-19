@@ -20,9 +20,9 @@ This takes all pixels at the same time and stores them.
 Thus no distortions in the image occur.
 
 This can be shown well with an example.
-In the figure \ref{subfig:rollingshutter} is a recording of a ball with rolling shutter. 
+In figure \ref{subfig:rollingshutter} is a recording of a ball with rolling shutter. 
 Figure \ref{subfig:globalshutter} shows the same object, taken with a global shutter camera.
-The distortion from the rolling shutter is clearly visible and bastardises the effective object.
+The distortion from the rolling shutter is clearly visible and deforms the effective object.
 
 \begin{figure}[ht]
 	\centering
@@ -47,7 +47,7 @@ The distortion from the rolling shutter is clearly visible and bastardises the e
 
 In addition to the global shutter requirement, the camera must also meet other specifications.
 
-To ensure that an image is always obtained even from fast objects, the maximum duration between two images is
+To ensure that an image is always received even from fast objects, the maximum duration between two images is
 
 \begin{equation}
   T_\text{max} = \frac{f_\text{w} \cdot 0.75}{v_\text{max}} = \frac{\SI{0.69}{m} \cdot 0.75}{\SI{30}{\frac{m}{s}}} = \SI{17.25}{ms}.
@@ -66,7 +66,7 @@ From equation \ref{eq:needed_T} it can be seen that the camera needs a frame rat
 
 In order to capture the contours of the objects being thrown as detailed as possible, the motion blur must be kept to a minimum. 
 This can be achieved by short exposure time. 
-With the assumption that the motion blur should be smaller than or equal to \SI{3}{cm}, there results a maximum exposure time of the camera of
+With the assumption that the motion blur should be smaller than or equal \SI{3}{cm}, there results a maximum exposure time of the camera of
 
 \begin{equation}
   t_\text{exp} = \frac{s_\text{max}}{v_\text{max}} = \frac{\SI{0.03}{m}}{\SI{30}{\frac{m}{s}}} = \SI{1}{ms}.

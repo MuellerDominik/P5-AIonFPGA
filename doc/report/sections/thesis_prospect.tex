@@ -8,19 +8,20 @@
 % Verification -- The accuracy and performance of the CNN model implemented on the FPGA is verified.
 
 This project work will be continued as a thesis in the next semester.
-The stand will be upgraded with the Fibox and a net construction.
-The box can already be manufactured according to the drawings, the net construction has to be drawn first.
+The throwing booth will be upgraded with the Fibox and a net construction.
+The box can be manufactured according to the drawings, the net construction has to be drawn first.
 Further the net holder will be produced with a 3D printer.
 
 The CNN model is developed and trained in Python 3 using TensorFlow 2 with the data set created in P5.
 In order to be able to evaluate the changes of the images on the ARM, a parallelization will probably be necessary.
 The reason is the lower clock rate of the ARM A53 processors with the same amount of data.
 
-As soon as this is realized, the next step is to implement the trained CNN model on the FPGA.
-With sufficient time resources, additional focus can be placed on speed optimization.
+As soon as this is realized the next step is to implement the trained CNN model on the FPGA.
+With sufficient time resources additional focus can be placed on speed optimization.
 
-At the same time, a linux-based operating system (OS) is put into operation on the MPSoC.
-Among other things, the application that acts with the users at the fair will run on it as well.
+At the same time a linux-based operating system (OS) is put into operation on the MPSoC.
+The application shows the recognized object to the user at the trade fair.
+This function is implemented on the ARM Cortex A53 as well.
 
 To measure the quality of the developed system, the neural network is verified.
 Special attention is paid to the differences between the computer and the implementation on the Zynq UltraScale+.
