@@ -40,7 +40,7 @@ Every modern computer should have the required resources to run the program.
 % --------------------------------
 \paragraph{OpenCV Circular Buffer}
 OpenCV matrix \texttt{cv::Mat} objects are used to perform the necessary image manipulations (see section \ref{subsubsec:image_change_detection}).
-The data pointer of the Baumer image buffer is used to create an OpenCV matrix as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:buffer}.
+The data pointer of the Baumer image buffer is used to create an OpenCV matrix, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:buffer}.
 This way, the OpenCV matrix does not allocate memory for the matrix data and uses the specified data.
 The reasons for only creating such a shallow copy are efficiency and memory space.
 % https://docs.opencv.org/4.1.1/d3/d63/classcv_1_1Mat.html#a51615ebf17a64c968df0bf49b4de6a3a

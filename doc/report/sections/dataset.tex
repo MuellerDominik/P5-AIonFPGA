@@ -1,18 +1,45 @@
 \section{Dataset}
 \label{sec:dataset}
-% \todo[inline]{Dominik}
+% \todo[inline]{Layout, Image of the statistics}
 
-% weniger bilder am rand von kleinen objekten, aufgrund des bildänderungsalgorithmuses (siehe kapitel ...)
-% all the different objects
-% some pictures to illustrate something
+% first day white balance problem => DONE
+% weniger bilder am rand von kleinen objekten, aufgrund des bildänderungsalgorithmuses (siehe kapitel ...) => done
+% all the different objects => table done
+% some pictures to illustrate something => done, illustrate what?
 % stats (from python file)
 
-% ref to picture of lamp brightness distribution (camera / lighting)
+% ref to picture of lamp brightness distribution (camera / lighting) => done
 
+The dataset contains images of 22 different throwing objects, as shown in table \ref{tab:objects}.
+% The collected dataset is fully labeled and contains more than \num{15000} usable images.
+It is fully labeled and consists of more than \num{15000} usable images with at least 480 images of each object.
+% There are 22 different throwing objects, as shown in table \ref{tab:objects}.
+% Table \ref{tab:objects} lists the 22 \num{22} different throwing objects.
+% The dataset contains at least 480 images of each object.
+All images were collected over the cource of two days.
+Figure \ref{subfig:stuffed_bunny} shows an example image of the \textit{Stuffed Bunny} and figure \ref{subfig:hand_featherball} shows an image of the \textit{Hand Featherball}.
 
+Figure \ref{fig:statistics} shows the statistics.
+It is evident that there are generally more images of larger objects.
+% darker areas on the edges => LESS image change rate
+% One reason for this, is the implemented throw detection mechanism (see section \ref{subsec:throw_detection_mechanism}).
+% This is partly due to the implemented throw detection mechanism (see section \ref{subsec:throw_detection_mechanism}).
+This is, on the one hand, due to the specific implementation of the throw detection mechanism (see section \ref{subsec:throw_detection_mechanism}).
+% The field of view is not uniformly illuminated, as described in section \ref{subsec:Lighting}.
+On the other hand, the field of view is not uniformly illuminated, as described in section \ref{subsec:Lighting}.
+% For this reason, a larger area is needed to achieve a sufficiently high image change.
+For those reason, a larger object area is required at the borders to achieve a sufficiently large change in the image.
+However, this also leads to the fact that the larger objects are more often only partially in the picture.
 
-\begin{table}[h]
-  \caption{List of the different objects}
+An important thing is that, on the first day, the white balance was performed continuously (every three images).
+This caused the background color of large colored objects to be distorted.
+% The labels include a Unix timestamp.
+It remains to be seen whether this will become a problem during training.
+% However, it is easy to remove these images should they become a problem if the label contains a Unix timestamp.
+However, if this should become a problem, the respective images can easily be removed, as the labels contain a Unix timestamp (see section \ref{subsec:database}).
+
+\begin{table}[hb]
+  \caption{List of the different throwing objects}
   \label{tab:objects}
   \centering
   \begin{tabular}{lll}
@@ -31,8 +58,7 @@
   \end{tabular}
 \end{table}
 
-
-\begin{figure}[ht]
+\begin{figure}[hb]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -48,6 +74,31 @@
   \end{subfigure}
   \caption{Two pictures from the dataset}
   \label{fig:dataset}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{statistics}
+  \caption{Statistics}
+  \label{fig:statistics}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{1574950250_238_9_foam-dice}
+    \caption{Continuous white balance}
+    \label{subfig:foam_dice_first_day}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{1575032343_726_11_foam-dice}
+    \caption{One-off white balance}
+    \label{subfig:foam_dice_second_day}
+  \end{subfigure}
+  \caption{White balance difference between the first (\subref{subfig:foam_dice_first_day}) and the second (\subref{subfig:foam_dice_second_day}) day}
+  \label{fig:dataset_white_balance}
 \end{figure}
 
 % Two-Row table
