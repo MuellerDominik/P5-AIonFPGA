@@ -1,21 +1,56 @@
-% \vspace*{\fill}
-% \null\vspace{\fill}
-\todo{Dominik}
+\vspace*{\fill}
 \begin{abstract}
-\noindent Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+%% Motivation
+% AI is the solution
+\noindent In a world of self-driving cars and automated quality control in manufacturing, real-time image classification is becoming increasingly important.
+Artificial intelligence, and deep learning in particular, are achieving excellent classification accuracies, but there are some challenges.
 
-% Motivation
-% Problem statement
-% Approach
-% Results
-% Conclusions
+%% Problem statement
+% Collect enought data to train the CNN
+% New problem: needs dataset to train + needs a lot of resources, thus implemented on hardware
+For one thing, high-resolution image acquisition systems require a lot of processing power.
+For another, a large labeled dataset of training data is required to train deep convolutional neural networks.
+% The problems are, the required processing power and a large labeled dataset of training data.
+
+%% Approach
+% industrial camera +
+% manually too error prone and time consuming => software
+A solution for the former is to use field-programmable gate arrays as hardware accelerators.
+The focus of this project, however, is to collect a labeled dataset.
+For this purpose, an industrial camera with a frame rate of \SI{200}{fps} is used to acquire images of 22 different throwing objects.
+To simplify this task, a camera throw detection mechanism is implemented and various Python scripts are used.
+% When done manually, the camera has to be started and stopped for each throw.
+% This likely creates many empty frames at the beginning and at the end of the capture.
+% Those empty and therefore invalid frames must be removed to avoid errors during the training of the CNN later on.
+% Furthermore, each valid frame must be labeled.
+% This procedure is very error-prone if it is performed manually for each individual frame.
+% To simplify this task, a camera throw detection mechanism is implemented and various Python scripts are used.
+
+%% Results
+% software created (throw detection)
+% over 15000 pictures collected
+% The developed software uses an image change detection algorithm to detect an individual throw.
+The developed software uses an image change detection algorithm to detect individual throws.
+% % The result is a software that uses an image change detection algorithm to detect individual throws.
+% The dataset is fully labeled and consists of more than \num{15000} usable images with at least 480 images of each object.
+The result is a fully labeled dataset that consists of more than \num{15000} usable images with at least 480 images of each object.
+
+%% Conclusions
+% Software showed to be extremely helpful
+% Developing software to aid the collection of the dataset proved to be extremely useful.
+% The development of software to support the data collection proved to be extremely useful.
+% The development of software to support the image acquisition proved to be extremely useful.
+Developing software to support the image acquisition proved to be extremely useful.
+% This made it possible to collect the complete dataset in only two days.
+It made it possible to collect the complete dataset in only two days.
+% With the help of the throw detection mechanism and is was
+
 % from https://users.ece.cmu.edu/~koopman/essays/abstract.html
 
 \vspace{3em}
 \begin{tabular}{>{\bfseries}ll}
-  Team members  & Nico Canzani, Dominik M\"uller \\
-  Keywords      & Keyword1, Keyword2, Keyword3
+  Team members & Nico Canzani, Dominik M\"uller \\
+  Keywords & Artificial Intelligence, FPGA, Labeled Data, Industrial Camera
 \end{tabular}
 \end{abstract}
-% \vspace*{\fill}
-% \vspace{\fill}
+\vspace*{\fill}
