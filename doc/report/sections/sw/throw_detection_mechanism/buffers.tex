@@ -1,6 +1,5 @@
 \subsubsection{Image Buffers}
 \label{subsubsec:buffers}
-% \todo[inline]{Citations}
 
 Two different buffers with the same buffer size (\texttt{BS}) are used.
 A Baumer image buffer to receive the images and an OpenCV matrix cirucular buffer to manipulate and save the images.
@@ -17,8 +16,7 @@ Table \ref{tab:buffer_memory_utilization} shows the required memory as well as t
 It is possible to get \SI{100}{\percent} memory utilization with the Baumer \texttt{BayerRG8} pixel format.
 The necessary memory for the specific payload size can be allocated manually and then passed to the constructor.
 However, the software is not designed to run on an embedded system but on a computer.
-Every modern computer should have the required resources to run the program.
-% https://www.baumer.com/ch/en/product-overview/industrial-cameras-image-processing/software/baumer-gapi-sdk/c/14174
+Every modern computer should have the required resources to run the program \cite{baumer_gapi}.
 
 \begin{table}[t]
   \caption{Baumer image buffer memory utilization for the pixel formats \texttt{BayerRG8} and \texttt{BGR8}}
@@ -42,8 +40,7 @@ Every modern computer should have the required resources to run the program.
 OpenCV matrix \texttt{cv::Mat} objects are used to perform the necessary image manipulations (see section \ref{subsubsec:image_change_detection}).
 The data pointer of the Baumer image buffer is used to create an OpenCV matrix, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:buffer}.
 This way, the OpenCV matrix does not allocate memory for the matrix data and uses the specified data.
-The reasons for only creating such a shallow copy are efficiency and memory space.
-% https://docs.opencv.org/4.1.1/d3/d63/classcv_1_1Mat.html#a51615ebf17a64c968df0bf49b4de6a3a
+The reasons for only creating such a shallow copy are efficiency and memory space \cite{opencv_mat}.
 
 In order to be able to save the images later, past OpenCV matrices must be available.
 For this reason, an OpenCV matrix circular buffer is used to keep track of them.

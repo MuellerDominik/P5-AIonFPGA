@@ -1,6 +1,5 @@
 \subsubsection{Image Change Detection}
 \label{subsubsec:image_change_detection}
-% \todo[inline]{Citations}
 
 This section describes the implementation of the image change detection.
 The difference computation and the averaging among all the pixels is done for every frame except the first one ($\texttt{FID} \geq 1$).
@@ -9,8 +8,7 @@ The threshold comparison and the throw detection is done for every frame after t
 % --------------------------------
 \paragraph{Difference Computation}
 The absolute difference pixel matrix $D$ can be calculated using equation \ref{eq:abs_diff}.
-The implementation uses the OpenCV function \texttt{cv::absdiff} to calculate the per-element absolute difference between the two pixel matrices and saves it into \texttt{cv\_abs}, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:abs_diff}.
-% https://docs.opencv.org/4.1.1/d2/de8/group__core__array.html#ga6fef31bc8c4071cbc114a758a2b79c14
+The implementation uses the OpenCV function \texttt{cv::absdiff} to calculate the per-element absolute difference between the two pixel matrices and saves it into \texttt{cv\_abs}, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:abs_diff} \cite{opencv_ooa_absdiff}.
 
 \begin{equation}
   D = |I_\text{FID} - I_\text{FID-1}| \quad\quad \text{with} \quad\quad \text{FID} \geq 1
@@ -27,8 +25,7 @@ The implementation uses the OpenCV function \texttt{cv::absdiff} to calculate th
 \paragraph{Average among all the pixels}
 The mean absolute difference $\overline{\text{MD}}$ can be calculated using equation \ref{eq:mean_diff}.
 The implementation uses the OpenCV function \texttt{cv::sum} to return the sum of array elements for each channel independently, as shown in appendix \ref{app:throw_detection} on line \ref{lst:ln:mean_diff}.
-Since the Baumer \texttt{BayerRG8} pixel format consists of only one channel, the zeroth element is used.
-% https://docs.opencv.org/4.1.1/d2/de8/group__core__array.html#ga716e10a2dd9e228e4d3c95818f106722
+Since the Baumer \texttt{BayerRG8} pixel format consists of only one channel, the zeroth element is used \cite{opencv_ooa_sum}.
 
 \begin{equation}
   \overline{\text{MD}} = \frac{1}{w\cdot h} \cdot \sum\limits_{i=1}^h \sum\limits_{j=1}^w D_{i,j}
