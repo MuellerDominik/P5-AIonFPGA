@@ -8,18 +8,14 @@ The efficiency in image classification of CNNs is largely responsible for the re
 % https://pathmind.com/wiki/convolutional-network
 
 The main problems when working with color images is that they are high-dimensional and therefore require a lot of processing power.
-% For this reason, CNNs use special layers to reduce the amount of data.
 For this reason, convolutional neural networks use special layers to detect features and reduce the amount of data.
-% Convolutional neural networks work with three different types of layers.
 The three different layers used are convolution layers, pooling layers and fully-connected layers.
-% Convolutional neural networks work with convolution layers, pooling layers and fully-connected layers.
 An example of a CNN sequence to classify handwritten digits is shown in figure \ref{fig:cnn}.
 % https://pathmind.com/wiki/convolutional-network
 
 \paragraph{Convolution Layer}
 The convolution layer performs the convolution operations using so-called kernels or filters.
 The goal of the convolution operation is to extract certain features --- such as edges --- from the image.
-% The different kernels are able to detect certain features in the image.
 Different kernels are used to detect different features.
 The first convolution layers are responsible for capturing low-level features, while following layers are responsible for capturing high-level features.
 \clearpage
@@ -28,25 +24,16 @@ The first convolution layers are responsible for capturing low-level features, w
 \paragraph{Pooling Layer}
 The pooling layers reduce the spatial size of the convolved features.
 Pooling only looks at the portion of the image that is covered by the kernel.
-% Pooling is done by looking only at the portion of the image covered by the kernel.
 Pooling is done by only looking at the portion of the image masked by the kernel.
 Maximum pooling yields the maximum value and average pooling yields the average value of the masked portion.
-% There are two types of pooling, maximum and average pooling.
-% This is usually done by looking at the portion of the image covered by the kernel 
 By doing so, the required computational power is significantly decreases and the dominat features are extracted.
-% Furthermore, dominat features are extracted by using.
 % https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
 \\
 
 \paragraph{Fully-Connected Layer}
-% The fully-connected layers use the result of the convolution process to determine the appropriate label.
 The fully-connected layers are responsible for learning the non-linear combinations of the high-level convolved features.
 They flatten the result of the convolution process into a vector of values.
-% Each value represents a probability that a certain feature belongs to a certain label.
 Each value corresponds to a probability that a certain feature belongs to a certain label.
-% They are responsible for learning the non-linear combinations of the high-level convolved features.
-% The output of the convolution process is flattend into a vector.
-% The result of the convolution process is flattened into a vector of probabilities, each representing a certain feature.
 % https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
 
 % https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
