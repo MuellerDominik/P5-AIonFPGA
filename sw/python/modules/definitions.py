@@ -60,7 +60,7 @@ def choice(text, choice_false, choice_true):
     else:
         return True
 
-# print the objects list and 
+# print the objects list and request a valid input
 def print_objects_list():
     noo, nos, nod = objects_list_info()
     even = (noo%2 == 0)
@@ -133,6 +133,7 @@ def fetch_rows(table, column, value, fields, database = database):
     query = f"SELECT {fields} FROM {table} WHERE {column} = '{value}'"
     return db_fetch_rows(query, database)
 
+# returns all rows from 'table'
 def fetch_all_rows(table, database = database):
     query = f"SELECT * FROM {table}"
     return db_fetch_rows(query, database)
@@ -157,5 +158,16 @@ def update_fields(table, rows, field, values, database=database):
                         f"WHERE id = '{row}'"))
     db_write(queries, database)
 
-def insert_row():
-    pass
+# insert single 'row' into 'table'
+def insert_row(table, row, database=database):
+    insert_rows(table, [row])
+
+# insert multiple 'rows' into 'table'
+def insert_rows(table, rows, database=database):
+    queries = []
+    for row in rows:
+        query = f'INSERT INTO {table} VALUES (NULL, '
+        for val in row:
+            query += f'{val}, '
+        queries.append(f'{query[:-2]})')
+    db_write(queries, database)
