@@ -44,7 +44,6 @@ The data pointer of the Baumer image buffer is used to create an OpenCV matrix a
 This way, the OpenCV matrix does not allocate memory for the matrix data and uses the specified data.
 The reasons for only creating such a shallow copy are efficiency and memory space.
 % https://docs.opencv.org/4.1.1/d3/d63/classcv_1_1Mat.html#a51615ebf17a64c968df0bf49b4de6a3a
-% https://www.baumer.com/ch/en/service-support/know-how/technical-information-industrial-cameras/baumer-gapi-and-opencv/a/baumer-gapi-and-opencv
 
 In order to be able to save the images later, past OpenCV matrices must be available.
 For this reason, an OpenCV matrix circular buffer is used to keep track of them.

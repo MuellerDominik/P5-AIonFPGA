@@ -4,24 +4,46 @@
 % creation of the data acquisition and alteration (daa) module with settings and definitions (functions)
 % short summary of the function of each python script
 
+This sections lists the various Python scripts and describes their functionality.
+Furthermore, it describes the created \textit{Data Acquisition and Alteration} (DAA) Python module.
+
+Collecting and working with a large dataset is not trivial.
+% It requires a lot of repetitive taskt, such as moving the files around and chaning the file names.
+It requires a lot of repetitive taskt, such as moving files around and chaning file names.
+This is very error-prone when performed manually.
+To minimize errors, the Python scripts listed in table \ref{tab:python_scripts} werde used.
+\\
+
+\paragraph{DAA Python Module}
+The different Python scripts require a lot of similar functionality (e.g. database connectivity, printing to the console and handling user input).
+For this reason the DAA Python module --- containing settings and definitions (functions) --- was created.
+% It contains setting and definitions (functions).
+% The usage of classes would not have proven useful
+The use of classes did not prove to be beneficial.
+Virtually all methods would have to be declared as static methods and therefore regular functions were used.
+% Therefore, regular functions were used.
+
 \begin{table}[hb]
-  \caption{Python scripts}
+  \caption{Description of the various Python scripts}
   \label{tab:python_scripts}
   \centering
-  \begin{tabular}{lp{8.5cm}}
+  \begin{tabular}{lp{9cm}}
     \toprule
-    \textbf{Name} & \textbf{Description} \\
+    \textbf{File Name} & \textbf{Description} \\
     \midrule
-    \texttt{aionfpga\_daa.py} & Text \\
-    \texttt{aionfpga\_db\_backup.py} & Text \\
-    \texttt{aionfpga\_review\_labels.py} & Text \\
-    \texttt{} & Text \\
-    \texttt{} & Text \\
-    \texttt{} & Text \\
+    \texttt{aionfpga\_daa.py} & This Python script is used to collect the dataset. It runs the \texttt{camera-interface} binary and provides the ability to directly label the frames after each throw. \\
+    \midrule
+    \texttt{aionfpga\_review\_labels.py} & Even when using Python scripts, the labels have to be selected from a list and human errors might occur. This Python script is used to review the label of each throw and change it, if necessary. \\
+    \midrule
+    \texttt{aionfpga\_partial\_frames.py} & This Python script is used to go over each throw and to assist the labeling of frames where the object is only partially visible. \\
+    \midrule
+    \texttt{aionfpga\_stats.py} & During data collection and in the end, it is advantageous to keep an eye on the statistics. This is exactly what this Python script does. \\
+    \midrule
+    \texttt{aionfpga\_db\_backup.py} & This Python script exports all rows of the database table \texttt{aionfpga.frames} and saves them to a \texttt{.csv} file. \\
+    \midrule
+    \texttt{aionfpga\_fix\_frameid.py} & Due to different ways of listing files between Windows and the \texttt{os} Python module, the frames were labeled in the wrong order. This Python script is used to undo the complicated transformation. \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-% review labels			change label
-% change label
-% db backup				backup db
+% This Python script creates a complete backup of the database table \texttt{aionfpga.frames} and saves it as a \texttt{.csv} file.
