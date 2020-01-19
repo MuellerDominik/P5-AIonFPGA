@@ -1,14 +1,10 @@
 \subsection{Python Scripts}
 \label{subsec:python_scripts}
 
-% creation of the data acquisition and alteration (daa) module with settings and definitions (functions)
-% short summary of the function of each python script
-
 This sections lists the various Python scripts and describes their functionality.
 Furthermore, it describes the created \textit{Data Acquisition and Alteration} (DAA) Python module.
 
 Collecting and working with a large dataset is not trivial.
-% It requires a lot of repetitive taskt, such as moving the files around and chaning the file names.
 It requires a lot of repetitive taskt, such as moving files around and chaning file names.
 This is very error-prone when performed manually.
 To minimize errors, the Python scripts listed in table \ref{tab:python_scripts} werde used.
@@ -17,11 +13,8 @@ To minimize errors, the Python scripts listed in table \ref{tab:python_scripts} 
 \paragraph{DAA Python Module}
 The different Python scripts require a lot of similar functionality (e.g. database connectivity, printing to the console and handling user input).
 For this reason the DAA Python module --- containing settings and definitions (functions) --- was created.
-% It contains setting and definitions (functions).
-% The usage of classes would not have proven useful
 The use of classes did not prove to be beneficial.
 Virtually all methods would have to be declared as static methods and therefore regular functions were used.
-% Therefore, regular functions were used.
 
 \begin{table}[hb]
   \caption{Description of the various Python scripts}
@@ -45,5 +38,3 @@ Virtually all methods would have to be declared as static methods and therefore 
     \bottomrule
   \end{tabular}
 \end{table}
-
-% This Python script creates a complete backup of the database table \texttt{aionfpga.frames} and saves it as a \texttt{.csv} file.
