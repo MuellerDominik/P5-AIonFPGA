@@ -21,7 +21,7 @@ The implementation of the image change detection is described in section \ref{su
 Furthermore, the way the threshold value is obtained is documented in section~\ref{subsubsec:threshold}.
 
 Due to the bandwidth limitations of the U3V interface mentioned in section \ref{subsubsec:usb3_vision_interface}, the received images are in the raw Bayer pixel format.
-A conversion from the Baumer \texttt{BayerRG8} to \texttt{BGR8} takes too long an therefore the raw frames are processed.
+A conversion from the Baumer \texttt{BayerRG8} to \texttt{BGR8} takes too long and therefore the raw frames are processed.
 Moreover, the valid images are only saved on the hard disk at the end of a throw, as this also takes a lot of time (see section \ref{subsubsec:saving_images}).
 
 For the above reasons, two image buffers are used.
