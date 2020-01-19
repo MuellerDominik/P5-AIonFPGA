@@ -6,7 +6,7 @@ The required color space transformation is done with the OpenCV function \texttt
 Since the Baumer \texttt{BayerRG} pixel format is used, the required color space conversion code is \texttt{cv::COLOR\_BayerBG2BGR} (see section \ref{subsubsec:pixel_format}).
 Afterwards, the OpenCV function \texttt{cv::imwrite} is used to save the image to the specified directory \texttt{output\_path} (see line~\ref{lst:ln:image_saving}).
 The images are named in numerical order, starting at zero.
-This results in the image file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ beeing the amount of valid frames) \cite{baumer_opencv}.
+This results in the image file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ being the amount of valid frames) \cite{baumer_opencv}.
 
 \vspace{5pt}
 \begin{lstlisting}[style=C++, caption={Saving the images}, label=lst:saving_images]
@@ -17,6 +17,6 @@ This results in the image file names `\texttt{$\{0..(N-1)\}$.png}' (with $N$ bee
 \end{lstlisting}
 
 The images are saved in the Portable Network Graphics (PNG) file format.
-The advante over bitmap (BMP) and Joint Photographic Experts Group (JPEG) images is the lossless compression.
+The advantage over bitmap (BMP) and Joint Photographic Experts Group (JPEG) images is the lossless compression.
 PNG images require less space than BMP images and offer better quality than the lossy JPEG images.
 If needed, PNG images can always be converted to BMP images and vice versa \cite{image_formats}.

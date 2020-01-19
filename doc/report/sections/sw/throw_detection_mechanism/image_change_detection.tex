@@ -42,7 +42,7 @@ Since the Baumer \texttt{BayerRG8} pixel format consists of only one channel, th
 
 % --------------------------------------------------
 \paragraph{Threshold Comparison and Throw Detection}
-Listing \ref{lst:throw_detection} shows the implementaion of the threshold comparison and the throw detection.
+Listing \ref{lst:throw_detection} shows the implementation of the threshold comparison and the throw detection.
 Due to the specific implementation, it is possible to detect a single frame change.
 This means that the image changes between two consecutive frames and then stays the way it is (e.g. sudden change of the ambient light).
 Such a glitch is not a valid throw and shall therefore be ignored (see line \ref{lst:ln:glitch_removal}).

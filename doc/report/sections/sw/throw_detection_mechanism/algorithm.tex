@@ -2,7 +2,7 @@
 \label{subsubsec:algorithm}
 % \todo[inline]{No citations.}
 
-The goal of the throw detection is to extract valid frames of a throw --- with objects on them --- from the continous data stream of the camera.
+The goal of the throw detection is to extract valid frames of a throw --- with objects on them --- from the continuous data stream of the camera.
 Therefore, the throw detection needs to work in real time.
 At a frame rate of \SI{200}{fps}, there is $<\SI{5}{ms}$ to process a single frame (without the use of parallel computing).
 Due to this time constraint, a simple image change detection algorithm is employed.
