@@ -5,6 +5,7 @@ Copyright (C) 2019 Dominik Müller and Nico Canzani
 '''
 
 import os
+import re
 import math
 
 import MySQLdb
@@ -32,9 +33,51 @@ def input_integer_range(text, min, max):
             if inp >= min and inp <= max:
                 return inp
 
-# input space separated list of numbers
-def input_integer_list():
-    pass
+# input space separated list of integers
+def input_integer_list(text, max):
+    inp = None
+    while inp is None:
+        print()
+        inp = input(f'{text} ').strip().split()
+        if inp == []:
+            break
+        elif inp[0] == 'all':
+            inp = [i+1 for i in range(max)]
+            break
+        inp_tmp = inp.copy()
+        inp_ext = []
+        popped = 0
+        for idx, i in enumerate(inp):
+            search = re.search("^([\\d]+)-([\\d]+)$", i)
+            if search:
+                inp_tmp.pop(idx-popped)
+                inp_ext.extend(list(range(int(search.group(1)),
+                                          int(search.group(2))+1)))
+                popped += 1
+        inp_tmp.extend(inp_ext)
+        inp = inp_tmp
+        try:
+            inp = map(int, inp)
+            inp = list(inp)
+        except Exception as e:
+            print(f'Error: only numbers allowed')
+            inp = None
+        else:
+            inp = list(set(inp))
+
+            if len(inp) > max:
+                print(f'Error: input > frames ({len(inp)} > {max})')
+                inp = None
+            else:
+                for i in inp:
+                    if i < 1 or i > max:
+                        if i < 1:
+                            print(f'Error: input < 1 ({i} < 1)')
+                        else:
+                            print(f'Error: input > max(input) ({i} > {max})')
+                        inp = None
+                        break
+    return inp
 
 # return infos about the `objects` list
 def objects_list_info():
