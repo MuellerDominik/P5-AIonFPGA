@@ -7,21 +7,22 @@
 % OS / application
 % Verification -- The accuracy and performance of the CNN model implemented on the FPGA is verified.
 
-This project work will be continued as a thesis in the next semester.
+This project will be continued as a thesis in the next semester.
 The throwing booth will be upgraded with the Fibox and a net construction.
-The box can be manufactured according to the drawings, the net construction has to be drawn first.
-Further the net holder will be produced with a 3D printer.
+The box can be manufactured according to the finished drawings, but the net construction has to be drawn first.
+The net holder will most likely be manufactured with a 3D printer.
 
-The CNN model is developed and trained in Python 3 using TensorFlow 2 with the data set created in P5.
-In order to be able to evaluate the changes of the images on the ARM, a parallelization will probably be necessary.
-The reason is the lower clock rate of the ARM A53 processors with the same amount of data.
+The CNN model is developed and trained in Python 3 using TensorFlow 2 with the dataset collected during this project.
+%In order to be able to evaluate the changes of the images on the ARM, a parallelization will probably be necessary.
+In order to be able to use the throw detection mechanism on the quad-core ARM-based processor, parallel computing will probably be necessary.
+The reason for this is the lower clock speed of the ARM Cortex-A53 processors for the same amount of data.
 
-As soon as this is realized the next step is to implement the trained CNN model on the FPGA.
-With sufficient time resources additional focus can be placed on speed optimization.
+As soon as this is realized, the next step is to implement the trained CNN model on the FPGA.
+With sufficient time resources, an additional focus can be placed on speed optimizations.
 
-At the same time a linux-based operating system (OS) is put into operation on the MPSoC.
+At the same time a Linux-based operating system (OS) is put into operation on the MPSoC.
 The application shows the recognized object to the user at the trade fair.
-This function is implemented on the ARM Cortex A53 as well.
+This function is implemented on the ARM Cortex-A53 as well.
 
-To measure the quality of the developed system, the neural network is verified.
-Special attention is paid to the differences between the computer and the implementation on the Zynq UltraScale+.
+To measure the quality of the developed system, the accuracy of the convolutional neural network is evaluated.
+Special attention is paid to the differences between the implementation on the computer and the implementation on the embedded system.
