@@ -27,7 +27,7 @@ This repository is structured as follows:
 
 The compiled `.pdf` files can be downloaded from here directly:
 
-| Name               | Download               | SHA-256                                                            |
+| Name               | Download               | SHA-256 checksum                                                   |
 |:------------------ |:---------------------- |:------------------------------------------------------------------ |
 | Project Plan       | [.pdf][Project Plan]   | `75256fd6d28adf24114fa799d3c93957663c4cb0b65e296efe11dfb00c0f3305` |
 | **Project Report** | [.pdf][Project Report] | `1cc0ad37966c758b7be9acfc377187fbf6ed6d5011ed15d732652167e6351fd1` |
@@ -54,7 +54,7 @@ $ make build clean
 
 ### Software
 
-| Name             | Download                 | SHA-256                                                            |
+| Name             | Download                 | SHA-256 checksum                                                   |
 |:---------------- |:------------------------ |:------------------------------------------------------------------ |
 | Camera Interface | [.exe][Camera Interface] | `6fe96e48369980c44b1ec7f457cd6a8e701554c5ae7c9b6a90c904dd19e3de93` |
 | Database         | [.csv][Database]         | `12a48e5d6550a2349968a423ea74518bb0d7ee153c19a7675a96eec8ee55d664` |
