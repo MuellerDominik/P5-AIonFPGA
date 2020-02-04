@@ -12,6 +12,8 @@ This repository is structured as follows:
 .
 ├── cad                 # CAD files of the Throwing Booth
 ├── doc                 # Documentation
+│   ├── fact-sheet      # Fact Sheet
+│   ├── presentation    # Presentation
 │   ├── project-plan    # Project Plan
 │   └── report          # Project Report
 └── sw                  # Software
@@ -25,10 +27,11 @@ This repository is structured as follows:
 
 The compiled `.pdf` files can be downloaded from here directly:
 
-| Name           | Download               |
-|:-------------- |:---------------------- |
-| Project Plan   | [.pdf][Project Plan]   |
-| Project Report | [.pdf][Project Report] |
+| Name               | Download               | SHA-256                                                            |
+|:------------------ |:---------------------- |:------------------------------------------------------------------ |
+| Project Plan       | [.pdf][Project Plan]   | `75256fd6d28adf24114fa799d3c93957663c4cb0b65e296efe11dfb00c0f3305` |
+| **Project Report** | [.pdf][Project Report] | `1cc0ad37966c758b7be9acfc377187fbf6ed6d5011ed15d732652167e6351fd1` |
+| Presentation       | [.pptx][Presentation]  | `98d2db6d353c2f17faa2e8a698cb1655aaf4e8a67ca07d807dd26fe1fddd615f` |
 
 #### Compilation
 
@@ -51,10 +54,10 @@ $ make build clean
 
 ### Software
 
-| Name             | Download                 |
-|:---------------- |:------------------------ |
-| Camera Interface | [.exe][Camera Interface] |
-| Database         | [.csv][Database]         |
+| Name             | Download                 | SHA-256                                                            |
+|:---------------- |:------------------------ |:------------------------------------------------------------------ |
+| Camera Interface | [.exe][Camera Interface] | `6fe96e48369980c44b1ec7f457cd6a8e701554c5ae7c9b6a90c904dd19e3de93` |
+| Database         | [.csv][Database]         | `12a48e5d6550a2349968a423ea74518bb0d7ee153c19a7675a96eec8ee55d664` |
 
 ## License
 
@@ -64,6 +67,8 @@ This project is licensed under the terms of the Apache License 2.0 - see the [LI
 
 [Project Plan]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.2/p5_aionfpga_project-plan_canzani_mueller.pdf
 [Project Report]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/p5_aionfpga_report_canzani_mueller.pdf
+[Presentation]: https://github.com/MuellerDominik/P5-AIonFPGA/blob/master/doc/presentation/p5_aionfpga_presentation_canzani_mueller.pptx
+
 [Mounting Adapter]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.3/MountingAdapter.dxf
 [Camera Protection]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.3/CameraProtection.dxf
 [Rear Panel]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.4/RearPanel.dxf
@@ -74,5 +79,6 @@ This project is licensed under the terms of the Apache License 2.0 - see the [LI
 [Rear Panel Drawing]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/Rear_Panel_Drawing.pdf
 [Side Panel Drawing]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/Side_Panel_Drawing.pdf
 [Fibox Drawing]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/Fibox_Drawing.pdf
+
 [Camera Interface]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/cam-interface.exe
 [Database]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/aionfpga_db.csv
