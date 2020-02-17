@@ -32,6 +32,7 @@ The compiled `.pdf` files can be downloaded from here directly:
 | Project Plan       | [.pdf][Project Plan]   | `75256fd6d28adf24114fa799d3c93957663c4cb0b65e296efe11dfb00c0f3305` |
 | **Project Report** | [.pdf][Project Report] | `1cc0ad37966c758b7be9acfc377187fbf6ed6d5011ed15d732652167e6351fd1` |
 | Presentation       | [.pptx][Presentation]  | `98d2db6d353c2f17faa2e8a698cb1655aaf4e8a67ca07d807dd26fe1fddd615f` |
+| Fact Sheet         | [.pdf][Fact Sheet]     | `c5267fa345f4ed9caf45743bf182baf9919883fc5a41b03d3843d0520dc32060` |
 
 #### Compilation
 
@@ -67,7 +68,8 @@ This project is licensed under the terms of the Apache License 2.0 - see the [LI
 
 [Project Plan]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.2/p5_aionfpga_project-plan_canzani_mueller.pdf
 [Project Report]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.0/p5_aionfpga_report_canzani_mueller.pdf
-[Presentation]: https://github.com/MuellerDominik/P5-AIonFPGA/blob/master/doc/presentation/p5_aionfpga_presentation_canzani_mueller.pptx
+[Presentation]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.1/p5_aionfpga_presentation_canzani_mueller.pptx
+[Fact Sheet]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v1.0.1/p5_aionfpga_fact-sheet_canzani_mueller.pdf
 
 [Mounting Adapter]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.3/MountingAdapter.dxf
 [Camera Protection]: https://github.com/MuellerDominik/P5-AIonFPGA/releases/download/v0.0.3/CameraProtection.dxf
